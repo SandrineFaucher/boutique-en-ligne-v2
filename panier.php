@@ -17,7 +17,9 @@ include 'head.php';
   ?>
 
   <main>
+    <h1> Panier </h1>
      <?php
+     
      ?>
   </main>
 

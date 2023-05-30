@@ -1,6 +1,9 @@
 
 <?php
 //fichier des fonctions pour pouvoir les appeler ici
+
+use function PHPSTORM_META\expectedReturnValues;
+
 include 'functions.php';
 
 
@@ -17,13 +20,36 @@ include 'head.php';
   ?>
 
   <main>
-    <h1>MA BOUTIQUE </h1>
+    <h1 class="text-center m-5">Ma Boutique</h1>
+    <div class="container-fluid">
+    <div class="row d-flex justify-content-evenly text-center"><!--début de la row-->
+          
      <?php
+     // je déclare la variable qui contient mon tableau d'articles 
+     // sa valeur, c'est le tableau d'articles renvoyé par la fonction getArticles
+     $articles = getArticles();
+
+     // je teste cette variable pour vérifier que j'ai bien mes 3 articles
+    //var_dump($articles);
+    //je lance ma boucle pour afficher une card bootstrap par article
+    foreach($articles as $article){
+      echo "<div class=\"card\" col-md-4 style=\"width: 18rem; \"text-center\">
+        <img src=\"./images/". $article['picture']."\" class=\"card-img-top\" alt=\"...\">
+        <div class=\"card-body\">
+        <h5 class=\"card-title\">". $article['name']. "</h5>
+        <p class=\"card-text\">". $article['description']. "</p>
+        <a href=\"#\" class=\"btn btn-primary\">". 'Ajouter au pannier'."</a>
+        </div>
+        </div>";
+    }
      ?>
+   </div><!--fin de la row-->
+   </div><!--fin du container-->
   </main>
 
 
   <?php
+  // fichier footer qui se repetera sur chaque page
   include 'footer.php';
   ?>
 

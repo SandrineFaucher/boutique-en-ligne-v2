@@ -1,7 +1,7 @@
 
 
 
-  <footer id="footnote">
+  <footer class="text-center m-5">
     <div class="row">
       <div class="col-md-3 text-center">
         <i class="fa-regular fa-face-smile"></i>
