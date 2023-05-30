@@ -17,7 +17,6 @@ include 'head.php';
   ?>
 
   <main>
-    <h1>MA BOUTIQUE </h1>
      <?php
      ?>
   </main>
