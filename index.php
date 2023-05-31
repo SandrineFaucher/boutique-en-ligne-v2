@@ -38,7 +38,15 @@ include 'head.php';
         <div class=\"card-body\">
         <h5 class=\"card-title\">". $article['name']. "</h5>
         <p class=\"card-text\">". $article['description']. "</p>
-        <a href=\"#\" class=\"btn btn-primary\">". 'Ajouter au pannier'."</a>
+        
+        <form method=\"GET\" action=\"./produit.php\">
+
+
+        <input type=\"hidden\" name=\"productId\" value=\"".$article['id']."\">
+
+        <input type=\"submit\" class=\"btn btn-success\" value=\"Détail produit\">
+        </form>
+
         </div>
         </div>";
     }
