@@ -6,8 +6,12 @@ use function PHPSTORM_META\expectedReturnValues;
 
 include 'functions.php';
 
-
+// Initialiser la sessition et accéder à la surpeglobale $_SESSION (tableau associatif)
 session_start();
+
+// initialiser le panier 
+createCart();
+var_dump($_SESSION);
 
 //fichier head avec les balises de bases + le head pour ne pas répéter dans chaque page
 include 'head.php';
@@ -41,10 +45,16 @@ include 'head.php';
         
         <form method=\"GET\" action=\"./produit.php\">
 
+        <input type=\"hidden\" name=\"productId\" value=\"".$article['id']."\">
+        
+        <input type=\"submit\" class=\"btn btn-success\" value=\"Détail produit\">
+        </form>
+
+        <form method=\"GET\" action=\"./panier.php\">
 
         <input type=\"hidden\" name=\"productId\" value=\"".$article['id']."\">
-
-        <input type=\"submit\" class=\"btn btn-success\" value=\"Détail produit\">
+        
+        <input type=\"submit\" class=\"btn btn-success\" value=\"Ajouter au panier\">
         </form>
 
         </div>

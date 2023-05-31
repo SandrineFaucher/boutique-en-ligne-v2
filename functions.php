@@ -6,7 +6,7 @@ function getArticles(){
         [
             'name'=> 'Robe longue',
             'id'=> '1',
-            'price' => 129.99€,
+            'price' => 129.99,
             'description' => 'L\'élégance',
             'detailedDescription' => 'Robe longue aux jolies couleurs estivales, elle égaiera vos plus belles soirées',
             'picture' => 'robe1.jpg'
@@ -15,7 +15,7 @@ function getArticles(){
         [
             'name' =>'Robe à fleurs',
             'id'=> '2',
-            'price' => 109.99€,
+            'price' => 109.99,
             'description' => 'Un air estival',
             'detailedDescription' => 'Robe sans manches, fluide, elle vous accompagnera en toute circonstance tout l\'été',
             'picture' => 'robe2.jpg'
@@ -24,7 +24,7 @@ function getArticles(){
         [
             'name'=> 'Robe blanche',
             'id'=> '3',
-            'price' => 159.99€,
+            'price' => 159.99,
             'description' => 'Robe de soirée',
             'detailedDescription' => 'Robe longue aux jolies couleurs estivales, elle égaiera vos plus belles soirées',
             'picture' => 'robe3.jpg'
@@ -42,11 +42,40 @@ function getArticleFromId($id){
         if ($article['id'] == $id){
             // le renvoyer avec un return
             return $article;
+        }
+    }
+}
 
+//*************************Initialiser le pannier en début de page********************/
+function createCart(){
+    if (isset($_SESSION['panier']) == false){//si mon panier n'existe pas encore
+        $_SESSION['panier'] = [] ;           // je l'initialise
+    }
+
+}
+//****************************Ajouter au panier *************************************/
+function addToCart($article){
+    // j'attribue une quantite de 1 (par défaut) à l'article
+    $article['quantite']=1;
+
+    // je vérifie si l'article n'est pas déjà présent en comparant les id
+    // for (
+        //$i = index de la boucle
+        //$i < count ($_SESSION['panier]) = condition de maintien de la boucle (évaluée AVANT chaque tout)
+        // (si condition vraie => on lance la boucle)
+        // $i++ = évolution de index $i à la FIN de chaque boucle
+        for ($i = 0; $i <count ($_SESSION['panier']); $i ++){
+
+        // si présent => quantite + 1
+        if ($_SESSION['panier'][$i]['id'] == $article['id']) {
+            $_SESSION['panier'][$i]['quantite']++;
+            return;//permet de sortir de la fonction
         }
     }
 
+    // si pas présent => ajout classique via array_push
+    array_push($_SESSION['panier'], $article);
+}
     
 
-}
 
