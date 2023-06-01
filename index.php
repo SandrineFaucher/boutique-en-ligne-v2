@@ -2,7 +2,6 @@
 <?php
 //fichier des fonctions pour pouvoir les appeler ici
 
-use function PHPSTORM_META\expectedReturnValues;
 
 include 'functions.php';
 
@@ -11,7 +10,7 @@ session_start();
 
 // initialiser le panier 
 createCart();
-var_dump($_SESSION);
+//var_dump($_SESSION);
 
 //fichier head avec les balises de bases + le head pour ne pas répéter dans chaque page
 include 'head.php';
