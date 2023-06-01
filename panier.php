@@ -42,6 +42,14 @@ include 'head.php';
 
      // var_dump($_SESSION);
     }
+    // tester s'il y a des changements dans le panier ****************************
+    if (isset ($_GET['quantite'])){
+      modifQuantite($_GET['quantite'],$_GET['productId']);
+
+    }
+
+
+
     // j'affiche les articles du panier *****************************************************************
     
       foreach ($_SESSION['panier'] as $article){
@@ -57,8 +65,13 @@ include 'head.php';
         ". $article['quantite']."
         </div>
 
-        <!--j'ajoute  un bouton de quantité-------------->
-        
+        <div class=\"col-md-2 text-center d-flex align-items-center\">
+        <form method=\"GET\" action=\"./panier.php\">
+        <input type=\"hidden\" name=\"productId\" value=\"".$article['id']."\">       
+        <input type=\"number\" min=\"1\" max=\"100\" name=\"quantite\" class=\"btn\" value=\"".$article['quantite']."\">
+        <input type=\"submit\" class=\"btn btn-success\" value=\"Modifier \">
+        </form>
+        </div>
 
         <div class=\"col-md-2 text-center d-flex align-items-center\">
         <p class=\"card-text\">". $article['price']."€</p>
@@ -73,8 +86,14 @@ include 'head.php';
       <div class=\"col-md-6 d-flex justify-content-end\">
       <p>".totalArticles(). "€</p>
       </div>";
+
+      // je test le changement de quantite****************************************************
+        
+
+      
       ?>
-  
+
+      
 
 
   </div>

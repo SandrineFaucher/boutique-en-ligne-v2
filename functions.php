@@ -92,3 +92,15 @@ function totalArticles()
     }
     return $total;
 }
+
+//******************************modification article***************************************** */
+
+function modifQuantite($nouvelleQuantite, $id)
+{
+    for ($i = 0; $i < count($_SESSION['panier']); $i++) {
+        if ($_SESSION['panier'][$i]['id'] == $id) {
+            $_SESSION['panier'][$i]['quantite'] = $nouvelleQuantite;
+            return;
+        }
+    }
+}
