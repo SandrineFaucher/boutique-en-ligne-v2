@@ -42,16 +42,28 @@ include 'head.php';
 
      // var_dump($_SESSION);
     }
-    // tester s'il y a des changements dans le panier ****************************
+    // Je teste les changements dans le panier avant de les afficher dans le panier*/
     if (isset ($_GET['quantite'])){
       modifQuantite($_GET['quantite'],$_GET['productId']);
 
     }
+    // pour supprimer un article **************************************************************
+    // je vérifie si je viens du formulaire "supprimer" ***************************************
+    if (isset ($_GET['supprimer'])){
 
+      // je supprime l'élément ****************************************************************
+      delateArticle($_GET['supprimer']);
 
+    } 
+    // Je vide mon panier *********************************************************************
+      // je vérifie si je vien du formulaire "vider le panier"***********************************
+      if (isset ($_GET['vider'])){
 
-    // j'affiche les articles du panier *****************************************************************
-    
+        // je vide le panier ****************************************************************
+        viderPanier($_SESSION['panier']);
+        }
+     
+    // j'affiche les articles du panier */
       foreach ($_SESSION['panier'] as $article){
         echo "<div class=\"row  text-bg-light p-3 \">
         <div class=\"col-md-2\">
@@ -60,10 +72,7 @@ include 'head.php';
         <div class=\"card-body col-md-2 text-center d-flex align-items-center \">
         <h5 class=\"card-title\">". $article['name']. "</h5>
         </div>
-        <div class=\"col-md-2 text-center d-flex align-items-center \">
-        <p class=\"quantite\">
-        ". $article['quantite']."
-        </div>
+        
 
         <div class=\"col-md-2 text-center d-flex align-items-center\">
         <form method=\"GET\" action=\"./panier.php\">
@@ -71,6 +80,14 @@ include 'head.php';
         <input type=\"number\" min=\"1\" max=\"100\" name=\"quantite\" class=\"btn\" value=\"".$article['quantite']."\">
         <input type=\"submit\" class=\"btn btn-success\" value=\"Modifier \">
         </form>
+        </div>
+
+        <div class=\"col-md-2 text-center d-flex align-items-center\">
+        <form method=\"GET\" action=\"./panier.php\">
+        <input type=\"hidden\" name=\"supprimer\" value=\"".$article['id']. "\">
+        <button type=\"submit\" class=\"btn btn-danger\"> 
+        supprimer
+        </button>
         </div>
 
         <div class=\"col-md-2 text-center d-flex align-items-center\">
@@ -86,16 +103,25 @@ include 'head.php';
       <div class=\"col-md-6 d-flex justify-content-end\">
       <p>".totalArticles(). "€</p>
       </div>";
+     
+      // s'il y a des articles dans mon panier j'affiche un bouton "vider le panier"**********
+      
 
-      // je test le changement de quantite****************************************************
-        
-
+      // bouton pour vider le panier *********************************************************
+      echo "<div class=\"row\">
+      <div class=\"col-md-6 d-flex justify-content-end\">
+      <form method=\"GET\" action=\"./panier.php\">
+        <input type=\"hidden\" name=\"vider\">
+        <button type=\"submit\" class=\"btn btn-danger\"> 
+        Vider le panier
+        </button>
+      </div> ";
+      
+    
+             
       
       ?>
-
-      
-
-
+   
   </div>
   </main>
 

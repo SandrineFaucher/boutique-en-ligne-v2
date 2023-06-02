@@ -97,10 +97,40 @@ function totalArticles()
 
 function modifQuantite($nouvelleQuantite, $id)
 {
+    //je boucle sur le panier => je cherche l'article à modifier
     for ($i = 0; $i < count($_SESSION['panier']); $i++) {
+
+        // dès que je trouve mon article 
         if ($_SESSION['panier'][$i]['id'] == $id) {
+
+            // je remplace son ancienne quantite par la nouvelle
             $_SESSION['panier'][$i]['quantite'] = $nouvelleQuantite;
+
+            // j'affiche un message de succès dans une petite fenetre via Javascript
+            echo "<script> alert(\"Quantité modifiée !\");</script>";
+
+            // je sors de la fonction pour éviter de boucler sur les articles suivants
             return;
         }
     }
+}
+
+// je supprime les éléments *******************************************************************
+function delateArticle($id)
+{
+    // je boucle sur le panier => je cherche l'article à supprimer
+    for ($i = 0; $i < count($_SESSION['panier']); $i++)
+
+        // dès que je trouve mon article 
+        if ($_SESSION['panier'][$i]['id'] == $id) {
+
+            // je supprime un élément du panier 
+            array_splice($_SESSION['panier'], $i, 1);
+        }
+}
+
+// je vide le panier complet *******************************************************************
+function viderPanier(){
+    $_SESSION['panier'] = [];
+
 }
