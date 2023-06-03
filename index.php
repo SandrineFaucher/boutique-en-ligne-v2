@@ -46,20 +46,26 @@ include 'head.php';
 
         <input type=\"hidden\" name=\"productId\" value=\"".$article['id']."\">
         
-        <input type=\"submit\" class=\"btn btn-success\" value=\"Détail produit\">
-        </form>
+        <input type=\"submit\" class=\"btn btn-sm btn-primary\" value=\"Détail produit\">
+        </form> </br>
 
         <form method=\"GET\" action=\"./panier.php\">
 
         <input type=\"hidden\" name=\"productId\" value=\"".$article['id']."\">
         
-        <input type=\"submit\" class=\"btn btn-success\" value=\"Ajouter au panier\">
+        <input type=\"submit\" class=\"btn btn-sm btn-success\" value=\"Ajouter au panier\">
         </form>
 
         </div>
         </div>";
     }
+    //Je vérifie si je viens du bouton valider ma commande de la page de validation************
+    if (isset($_GET['commandeValidee'])){
+      // dans ce cas je vide mon panier puisque ma commande est validée !**********************
+      viderPanier($_SESSION['panier']);
+    }
      ?>
+  
    </div><!--fin de la row-->
    </div><!--fin du container-->
   </main>

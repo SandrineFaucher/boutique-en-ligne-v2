@@ -64,7 +64,7 @@ function addToCart($article)
     // je vérifie si l'article n'est pas déjà présent en comparant les id
     // for (
     //$i = index de la boucle
-    //$i < count ($_SESSION['panier]) = condition de maintien de la boucle (évaluée AVANT chaque tout)
+    //$i < count ($_SESSION['panier]) = condition de maintien de la boucle (évaluée AVANT chaque tour)
     // (si condition vraie => on lance la boucle)
     // $i++ = évolution de index $i à la FIN de chaque boucle
     for ($i = 0; $i < count($_SESSION['panier']); $i++) {
@@ -79,6 +79,7 @@ function addToCart($article)
     // si pas présent => ajout classique via array_push
     array_push($_SESSION['panier'], $article);
 }
+
 
 //******************************calcul du total du panier*********************************** */
 
@@ -134,3 +135,22 @@ function viderPanier(){
     $_SESSION['panier'] = [];
 
 }
+
+// je crée une fonction qui calcule les frais de port*****************************************************************
+// je boucle sur mon panier
+function fraisDePort($article){
+    $fraisParArticle = 3;
+    $total = 0;
+    
+    foreach ($_SESSION['panier'] as $article) {
+        $total += $article['quantite'] * $fraisParArticle;
+    }
+    return $total;
+}
+
+
+        
+
+                
+
+        
