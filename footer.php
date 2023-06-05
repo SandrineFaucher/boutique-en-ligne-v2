@@ -2,17 +2,17 @@
 <div id="carouselExampleRide" class="carousel slide" data-bs-ride="true">
   <div class="carousel-inner">
     <div class="carousel-item active mt-5 mb-5">
-    <i class="fa-regular fa-face-smile "></i>
+    <i class="fa-regular fa-face-smile p-3 "></i>
         <p>Satisfait ou remboursé</p>
         <p>14 jours pour échanger</p>
     </div>
     <div class="carousel-item mt-5 mb-5">
-    <i class="fa-solid fa-truck-fast"></i>
+    <i class="fa-solid fa-truck-fast p-3"></i>
         <p>Livraison rapide</p>
         <p>Domicile ou point relais</p>
     </div>
     <div class="carousel-item mt-5 mb-5">
-    <i class="fa-solid fa-piggy-bank"></i>
+    <i class="fa-solid fa-piggy-bank p-3"></i>
         <p>Livraison gratuite</p>
         <p>à partir de 50€</p>
     </div>

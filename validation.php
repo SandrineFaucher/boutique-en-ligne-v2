@@ -30,6 +30,12 @@ include 'head.php';
       modifQuantite($_GET['quantite'], $_GET['productId']);
     }
 
+    // si je viens du bouton supprimer*********************************************
+    if (isset($_GET['Idtodelate'])) {
+      // je supprime l'élément ****************************************************
+      delateArticle($_GET['Idtodelate']);
+    }
+
     // j'affiche les articles du panier */
     foreach ($_SESSION['panier'] as $article) {
       echo "<div class=\"row  text-bg-light p-3 \">
@@ -64,27 +70,27 @@ include 'head.php';
     }
 
     // j'affiche le total du panier ********************************************************
-    echo "
-      <div class=\"container validation-box\">
-      <div class=\"row d-flex justify-content-center justify-content-lg-end\">
+    echo "<div class=\"row  d-flex justify-content-center justify-content-lg-end\">
        <div class=\"col-md-6 d-flex justify-content-center justify-content-lg-end\">
        <p> Total du panier </p>
        </div> 
        <div class=\"col-md-6 text-center \">
        <p>" . totalArticles() . " €</p>
+       </div>
        </div>";
 
     // j'affiche le calcul des frais de port ************************************************
-    echo "<div class=\"row d-flex justify-content-center justify-content-lg-end\" >
+    echo "<div class=\"row  d-flex justify-content-center justify-content-lg-end\" >
       <div class=\"col-md-6  d-flex justify-content-center justify-content-lg-end\">
       <p> Frais de port 3€/article </p>
       </div> 
       <div class=\"col-md-6 text-center \">
       <p>" . fraisDePort($_SESSION['panier']) . " €</p>
+      </div>
       </div>";
 
     // j'affiche le total général avec les frais de port*************************************
-    echo "<div class=\"row d-flex justify-content-center justify-content-lg-end\" >
+    echo "<div class=\"row  d-flex justify-content-center justify-content-lg-end\" >
       <div class=\"col-md-6  d-flex justify-content-center justify-content-lg-end\">
       <p> Total à payer </p>
       </div> 
@@ -109,14 +115,25 @@ include 'head.php';
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            Nous vous remercions pour votre confiance.
+            <p>Montant total : <?= fraisDePort($article) + totalArticles() ?> €</p>
+            <p>Nous vous remercions pour votre confiance.</p>
+            <p>Expédition à partir du <?php
+                                      $date = date_create("05-06-2023");
+                                      echo date_format($date, "d-m-Y");
+                                      ?> </p>
+            <p>Livraison estimée le
+              <?php
+              $date = date_create("05-06-2023");
+              date_add($date, date_interval_create_from_date_string("3 days"));
+              echo date_format($date, "d-m-Y");
+              ?>
+            </p>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <form method="GET" action="./index.php">
               <input type="hidden" name="commandeValidee">
               <button type="submit" class="btn btn-success">
-                ok
+                Retour à l'accueil
               </button>
             </form>
 
