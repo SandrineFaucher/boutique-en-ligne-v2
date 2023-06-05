@@ -20,75 +20,84 @@ include 'head.php';
   ?>
 
   <main>
-    <div class="row text-center">
-      <h1> Validation du panier </h1>
+    <div class="row text-center mt-5 mb-5">
+      <h1> Je valide ma commande </h1>
     </div>
     <?php
+
+    // Je teste les changements dans le panier avant de les afficher dans le panier*/
+    if (isset($_GET['quantite'])) {
+      modifQuantite($_GET['quantite'], $_GET['productId']);
+    }
 
     // j'affiche les articles du panier */
     foreach ($_SESSION['panier'] as $article) {
       echo "<div class=\"row  text-bg-light p-3 \">
-         <div class=\"col-md-2\">
+         <div class=\"col-md-2 d-flex justify-content-center justify-content-lg-end\">
          <img src=\"./images/" . $article['picture'] . "\" class=\"card-img-top x-center\" alt=\"robe-panier\">
          </div>
-         <div class=\"card-body col-md-2 text-center d-flex align-items-center \">
+         <div class=\"card-body col-md-2 text-center my-auto d-flex justify-content-center justify-content-lg-start \">
          <h5 class=\"card-title\">" . $article['name'] . "</h5>
          </div>
          
  
-         <div class=\"col-md-2 text-center d-flex align-items-center\">
-         <form method=\"GET\" action=\"./panier.php\">
+         <div class=\"col-md-2 text-center d-flex align-items-center d-flex justify-content-center justify-content-lg-end mt-2\">
+         <form method=\"GET\" action=\"./validation.php\">
          <input type=\"hidden\" name=\"productId\" value=\"" . $article['id'] . "\">       
          <input type=\"number\" min=\"1\" max=\"100\" name=\"quantite\" class=\"btn\" value=\"" . $article['quantite'] . "\">
-         <input type=\"submit\" class=\"btn btn-success\" value=\"Modifier \">
+         <input type=\"submit\" class=\"btn btn-sm btn-success\" value=\"Modifier \">
          </form>
          </div>
  
-         <div class=\"col-md-2 text-center d-flex align-items-center\">
-         <form method=\"GET\" action=\"./panier.php\">
+         <div class=\"col-md-2 text-center d-flex align-items-center d-flex justify-content-center justify-content-lg-end \">
+         <form method=\"GET\" action=\"./validation.php\">
          <input type=\"hidden\" name=\"Idtodelate\" value=\"" . $article['id'] . "\">
-         <button type=\"submit\" class=\"btn btn-danger\"> 
+         <button type=\"submit\" class=\"btn btn-sm btn-danger mt-5\"> 
          supprimer
          </button>
          </form>
          </div>
  
-         <div class=\"col-md-2 text-center d-flex align-items-center\">
-         <p class=\"card-text\">" . $article['price'] . "€</p>
+         <div class=\"col-md-2 text-center d-flex align-items-center d-flex justify-content-center justify-content-lg-end mt-5\">
+         <p class=\"card-text\">" . $article['price'] * $article['quantite'] . " €</p>
          </div>";
     }
 
     // j'affiche le total du panier ********************************************************
-    echo "<div class=\"row  text-bg-light p-3 \">
-       <div class=\"col-md-6 d-flex justify-content-end\">
+    echo "
+      <div class=\"container validation-box\">
+      <div class=\"row d-flex justify-content-center justify-content-lg-end\">
+       <div class=\"col-md-6 d-flex justify-content-center justify-content-lg-end\">
        <p> Total du panier </p>
        </div> 
-       <div class=\"col-md-6 d-flex justify-content-end\">
-       <p>" . totalArticles() . "€</p>
+       <div class=\"col-md-6 text-center \">
+       <p>" . totalArticles() . " €</p>
        </div>";
 
     // j'affiche le calcul des frais de port ************************************************
-    echo "<div class=\"row  text-bg-light p-3 \">
-      <div class=\"col-md-6 d-flex justify-content-end\">
+    echo "<div class=\"row d-flex justify-content-center justify-content-lg-end\" >
+      <div class=\"col-md-6  d-flex justify-content-center justify-content-lg-end\">
       <p> Frais de port 3€/article </p>
       </div> 
-      <div class=\"col-md-6 d-flex justify-content-end\">
+      <div class=\"col-md-6 text-center \">
       <p>" . fraisDePort($_SESSION['panier']) . " €</p>
       </div>";
 
     // j'affiche le total général avec les frais de port*************************************
-    echo "<div class=\"row  text-bg-light p-3 \">
-      <div class=\"col-md-6 d-flex justify-content-end\">
+    echo "<div class=\"row d-flex justify-content-center justify-content-lg-end\" >
+      <div class=\"col-md-6  d-flex justify-content-center justify-content-lg-end\">
       <p> Total à payer </p>
       </div> 
-      <div class=\"col-md-6 d-flex justify-content-end\">
+      <div class=\"col-md-6  text-center \">
       <p>" . fraisDePort($article) + totalArticles() . " €</p>
+      </div>
       </div>";
     ?>
+
     <!--je valide ma commande avec un modal bootstrap --->
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-      Je valie ma commande
+    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+      Je valide ma commande
     </button>
 
     <!-- Modal -->
@@ -100,15 +109,15 @@ include 'head.php';
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-           Nous vous remercions pour votre confiance. 
+            Nous vous remercions pour votre confiance.
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <form method="GET" action="./index.php">
-            <input type="hidden" name="commandeValidee">
-            <button type="submit" class="btn btn-success">
-              ok
-            </button>
+              <input type="hidden" name="commandeValidee">
+              <button type="submit" class="btn btn-success">
+                ok
+              </button>
             </form>
 
           </div>
@@ -121,5 +130,5 @@ include 'head.php';
 
 
   <?php
-  include 'footer.php';
+  include './footer.php';
   ?>

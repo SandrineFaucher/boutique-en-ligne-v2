@@ -40,7 +40,7 @@ include 'head.php';
           <p class="card-text"><?= $article['detailedDescription'] ?></p>
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item"><?= $article['price'] ?></li>
+          <li class="list-group-item"><?= $article['price'] ?>€</li>
         </ul>
 
         <form method="GET" action="./panier.php">

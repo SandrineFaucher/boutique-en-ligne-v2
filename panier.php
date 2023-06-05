@@ -19,8 +19,8 @@ include 'head.php';
   ?>
 
   <main>
-    <div class="row text-center">
-      <h1> Panier </h1>
+    <div class="row text-center mt-5 mb-5">
+      <h1> Mon panier </h1>
     </div>
     <div class="container-fluid">
 
@@ -63,24 +63,22 @@ include 'head.php';
 
       // j'affiche les articles du panier */
       foreach ($_SESSION['panier'] as $article) {
-        echo "<div class=\"row  text-bg-light p-3 \">
-        <div class=\"col-md-2\">
+        echo "<div class=\"row text-bg-light p-3 \">
+        <div class=\"col-md-2 text-start\">
         <img src=\"./images/" . $article['picture'] . "\" class=\"card-img-top x-center\" alt=\"robe-panier\">
         </div>
-        <div class=\"card-body col-md-2 text-center d-flex align-items-center \">
+        <div class=\"card-body col-md-2 my-auto d-flex justify-content-center justify-content-lg-start \">
         <h5 class=\"card-title\">" . $article['name'] . "</h5>
         </div>
-        
-
-        <div class=\"col-md-2 text-center d-flex align-items-center mt-2\">
+        <div class=\"col-md-2 text-center d-flex align-items-center mt-2 d-flex justify-content-center justify-content-lg-end \">
         <form method=\"GET\" action=\"./panier.php\">
         <input type=\"hidden\" name=\"productId\" value=\"" . $article['id'] . "\">       
         <input type=\"number\" min=\"1\" max=\"100\" name=\"quantite\" class=\"btn\" value=\"" . $article['quantite'] . "\">
-        <input type=\"submit\" class=\"btn btn-sm btn-success\" value=\"Modifier \">
+        <input type=\"submit\" class=\"btn btn-sm btn-outline-success\" value=\"Modifier \">
         </form>
         </div>
 
-        <div class=\"col-md-2 text-center d-flex align-items-center mt-5\">
+        <div class=\"col-md-2 text-center d-flex align-items-center mt-5 d-flex justify-content-center justify-content-lg-end\">
         <form method=\"GET\" action=\"./panier.php\">
         <input type=\"hidden\" name=\"Idtodelate\" value=\"" . $article['id'] . "\">
         <button type=\"submit\" class=\"btn btn-sm btn-danger\"> 
@@ -88,18 +86,19 @@ include 'head.php';
         </button>
         </form>
         </div>
-
-        <div class=\"col-md-2 text-center d-flex align-items-center\">
-        <p class=\"card-text\">" . $article['price'] . "€</p>
+        
+        <div class=\"col-md-2 text-center d-flex align-items-center mt-5 d-flex justify-content-center justify-content-lg-end\">
+        <p class=\"card-text\">" . $article['price'] * $article['quantite'] . "€</p>
+        </div>
         </div>";
       }
 
       // j'affiche le total du panier ********************************************************
-      echo "<div class=\"row  text-bg-light p-3 \">
-      <div class=\"col-md-6 d-flex justify-content-end\">
+      echo "<div class=\"row validation-box text-bg-light d-flex justify-content-end text-center\">
+      <div class=\"col-md-2 d-flex justify-content-center justify-content-lg-end \">
       <p> Total du panier </p>
       </div> 
-      <div class=\"col-md-6 d-flex justify-content-end\">
+      <div class=\"col-md-2 d-flex d-flex justify-content-center justify-content-lg-end\">
       <p>" . totalArticles() . "€</p>
       </div>";
 
@@ -107,29 +106,27 @@ include 'head.php';
       if (count($_SESSION['panier']) >= 1) {
 
         // bouton pour vider le panier *********************************************************
-        echo "<div class=\"row\">
-      <div class=\"col-md-6 d-flex justify-content-end ms-3 mt-3\">
-      <form method=\"GET\" action=\"./panier.php\">
+        echo "<div class=\"row  d-flex justify-content-center justify-content-lg-end\">
+        <div class=\"col-md-6  d-flex justify-content-center justify-content-lg-end\">
+        <form method=\"GET\" action=\"./panier.php\">
         <input type=\"hidden\" name=\"vider\">
-        <button type=\"submit\" class=\"btn btn-sm btn-danger\"> 
+        <button type=\"submit\" class=\"btn  btn-sm btn-outline-danger\"> 
         Vider le panier
         </button>
         </form>
-      </div> ";
+        </div> ";
       }
 
       ?>
-      <div class="row d-flex text-end">
+      <div class="row d-flex justify-content-end">
         <a href="./validation.php">
-          <button class="btn btn-primay">
+          <button type="submit" class="btn btn-sm btn-success mt-5">
             Valider mon panier
           </button>
         </a>
       </div>
 
-
   </main>
-
 
   <?php
   include 'footer.php';

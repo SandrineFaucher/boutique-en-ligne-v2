@@ -13,17 +13,17 @@ createCart();
 //var_dump($_SESSION);
 
 //fichier head avec les balises de bases + le head pour ne pas répéter dans chaque page
-include 'head.php';
+include './head.php';
 ?>
 
 
 <body>
   <?php 
-  include 'header.php';
+  include './header.php';
   ?>
 
   <main>
-    <h1 class="text-center m-5">Ma Boutique</h1>
+    <h1 class="text-center m-5">Bienvenue dans ma boutique</h1>
     <div class="container-fluid">
     <div class="row d-flex justify-content-evenly text-center"><!--début de la row-->
           
@@ -46,7 +46,7 @@ include 'head.php';
 
         <input type=\"hidden\" name=\"productId\" value=\"".$article['id']."\">
         
-        <input type=\"submit\" class=\"btn btn-sm btn-primary\" value=\"Détail produit\">
+        <input type=\"submit\" class=\"btn btn-sm btn-outline-primary\" value=\"Détail produit\">
         </form> </br>
 
         <form method=\"GET\" action=\"./panier.php\">

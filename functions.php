@@ -115,7 +115,6 @@ function modifQuantite($nouvelleQuantite, $id)
         }
     }
 }
-
 // je supprime les éléments *******************************************************************
 function delateArticle($id)
 {
@@ -131,26 +130,20 @@ function delateArticle($id)
 }
 
 // je vide le panier complet *******************************************************************
-function viderPanier(){
+function viderPanier()
+{
     $_SESSION['panier'] = [];
-
 }
 
 // je crée une fonction qui calcule les frais de port*****************************************************************
 // je boucle sur mon panier
-function fraisDePort($article){
+function fraisDePort($article)
+{
     $fraisParArticle = 3;
     $total = 0;
-    
+
     foreach ($_SESSION['panier'] as $article) {
         $total += $article['quantite'] * $fraisParArticle;
     }
     return $total;
 }
-
-
-        
-
-                
-
-        
