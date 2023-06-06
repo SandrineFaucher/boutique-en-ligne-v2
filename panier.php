@@ -114,18 +114,22 @@ include 'head.php';
         Vider le panier
         </button>
         </form>
-        </div> ";
-      }
-
-      ?>
-      <div class="row d-flex justify-content-end">
-        <a href="./validation.php">
-          <button type="submit" class="btn btn-sm btn-success mt-5">
+        </div>
+        <div class=\"row d-flex justify-content-end\">
+        <a href=\"./validation.php\">
+          <button type=\"submit\" class=\"btn btn-sm btn-success mt-5\">
             Valider mon panier
           </button>
         </a>
-      </div>
+      </div>";
+      }
+      else{
+        echo "Votre panier est vide";
+      }
 
+      ?>
+      
+      
   </main>
 
   <?php

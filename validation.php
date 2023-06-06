@@ -66,6 +66,7 @@ include 'head.php';
  
          <div class=\"col-md-2 text-center d-flex align-items-center d-flex justify-content-center justify-content-lg-end mt-5\">
          <p class=\"card-text\">" . $article['price'] * $article['quantite'] . " €</p>
+         </div>
          </div>";
     }
 
@@ -102,9 +103,11 @@ include 'head.php';
 
     <!--je valide ma commande avec un modal bootstrap --->
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-      Je valide ma commande
-    </button>
+    <div class="bouton d-flex justify-content-center justify-content-lg-center">
+      <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        Je valide ma commande
+      </button>
+    </div>
 
     <!-- Modal -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -136,16 +139,13 @@ include 'head.php';
                 Retour à l'accueil
               </button>
             </form>
-
           </div>
         </div>
       </div>
     </div>
-
-
   </main>
 
-
+  <!--intégration du footer-->
   <?php
   include './footer.php';
   ?>

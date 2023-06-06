@@ -1,8 +1,6 @@
 
 <?php
 //fichier des fonctions pour pouvoir les appeler ici
-
-
 include 'functions.php';
 
 // Initialiser la sessition et accéder à la surpeglobale $_SESSION (tableau associatif)
@@ -18,6 +16,7 @@ include './head.php';
 
 
 <body>
+  <!--intégration de la navbar-->
   <?php 
   include './header.php';
   ?>
@@ -76,7 +75,7 @@ include './head.php';
   include 'footer.php';
   ?>
 
-
+gi
 
 
 

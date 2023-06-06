@@ -1,42 +1,41 @@
+
+/*GLOBAL*/
 * {
     margin: 0;
     padding: 0;
 }
-
 /* police de caractère */
 * {
     font-family: "Arial", Helvetica, sans-serif;
 }
+/*body */
+h1 {
+    font-family: 'Parisienne', cursive;
+    font-weight: 700;
+}
+body {
+    background-color: rgb(238, 224, 224);
+}
+
+
+/* HEADER */
 
 /* logo */
 nav img {
     width: 150px;
     border-radius: 50%;
 }
-
 nav a {
     font-family: 'Arial', Helvetica, sans-serif;
-
 }
-
 nav .nav-link {
     font-size: 20px;
 }
 
-/*body */
-h1 {
-    font-family: 'Parisienne', cursive;
-    font-weight: 700;
-}
-
+/*VALIDATION*/
 .modal-header h5 {
     color: green;
 }
-
-body {
-    background-color: rgb(238, 224, 224);
-}
-
 .validation-box {
     border-style: solid;
     border-color: rgb(232, 191, 191);
@@ -44,19 +43,14 @@ body {
     margin-top: 50px;
 }
 
+
+/* FOOTER */
 footer {
     margin-top: 50px;
     background-color: black;
     color: white;
     width: 100%;
 }
-
-.format-validation {
-    border-style: solid;
-    border-color: brown;
-    padding: 30px;
-}
-
 footer i {
     font-size: 30px;
 }
