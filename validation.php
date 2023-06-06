@@ -121,13 +121,20 @@ include 'head.php';
             <p>Montant total : <?= fraisDePort($article) + totalArticles() ?> €</p>
             <p>Nous vous remercions pour votre confiance.</p>
             <p>Expédition à partir du <?php
-                                      $date = date_create("05-06-2023");
-                                      echo date_format($date, "d-m-Y");
+                                      // obtenir la date du jour formatée
+                                      $date = date("d-m-Y");
+                                      echo $date;
                                       ?> </p>
             <p>Livraison estimée le
               <?php
-              $date = date_create("05-06-2023");
+              // calcul : date du jour + 3 jours ********/
+              // je récupère la date du jour en format DateTime (exigé par la fonction date_add)
+              $date = new Datetime('now');
+              // on utilise date_add pour ajouter 3 jours
+              // date_interval...=> permet d'obtenir l'intervalle de temps souhaité pour l'ajouter
               date_add($date, date_interval_create_from_date_string("3 days"));
+              // à ce stade, $date est directement modifiée
+              // je l'affiche en la formatant : jour mois année => 09-06-2023
               echo date_format($date, "d-m-Y");
               ?>
             </p>
