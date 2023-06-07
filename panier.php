@@ -32,7 +32,7 @@ include 'head.php';
 
     //var_dump($_SESSION);
   }
-  
+
   // Je teste les changements dans le panier avant de les afficher dans le panier*/
   if (isset($_GET['quantite'])) {
     modifQuantite($_GET['quantite'], $_GET['productId']);
@@ -62,7 +62,7 @@ include 'head.php';
     <div class="container-fluid">
 
       <?php
-      
+
       // j'affiche les articles du panier */
       foreach ($_SESSION['panier'] as $article) {
         echo "<div class=\"row text-bg-light p-3 \">
@@ -90,7 +90,7 @@ include 'head.php';
         </div>
         
         <div class=\"col-md-2 text-center d-flex align-items-center mt-5 d-flex justify-content-center justify-content-lg-end\">
-        <p class=\"card-text\"> prix unitaire:".$article['price']."€ total article:" . $article['price'] * $article['quantite'] . "€</p>
+        <p class=\"card-text\"> prix unitaire:" . $article['price'] . "€ total article:" . $article['price'] * $article['quantite'] . "€</p>
         </div>
         </div>";
       }
@@ -124,14 +124,13 @@ include 'head.php';
           </button>
         </a>
       </div>";
-      }
-      else{
+      } else {
         echo "Votre panier est vide";
       }
 
       ?>
-      
-      
+
+
   </main>
 
   <?php

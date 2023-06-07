@@ -12,7 +12,10 @@
               <a class="nav-link active p-5" aria-current="page" href="./index.php">Accueil</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active p-5" aria-current="page" href="./index.php">Inscription</a>
+              <a class="nav-link active p-5" aria-current="page" href="./gammes.php">Gammes</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active p-5" aria-current="page" href="./inscription.php">Inscription / connexion</a>
             </li>
             <li class="nav-item">
               <a class="nav-link active p-5" aria-current="page" href="./panier.php"><i class="fa-solid fa-bag-shopping"></i> <?= count($_SESSION['panier']) ?> </a>

@@ -27,22 +27,14 @@ include './head.php';
 
     <main>
         <div class="row text-center mt-5 mb-5">
-            <h1> Se connecter </h1>
+            <h1> Mes commandes </h1>
         </div>
         <div class="container-fluid">
 
 
 
 
-
-
-
-
-
     </main>
-
-
-
 
 
 

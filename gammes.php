@@ -27,21 +27,37 @@ include './head.php';
 
     <main>
         <div class="row text-center mt-5 mb-5">
-            <h1> Se connecter </h1>
+            <h1> Nos gammes </h1>
         </div>
         <div class="container-fluid">
+    <?php 
+
+        //*************/ j'affiche les gammes avec la fonction getGammes($id)*********//
+               
+      // var_dump (getGammes());
 
 
+       // je récupère les produits qui correspondent à l'id de la gamme 1  //
+
+    foreach ($articles as $id_gamme){
 
 
+        
+    }
+
+
+    
+       
+
+        
+
+    ?>
 
 
 
 
 
     </main>
-
-
 
 
 

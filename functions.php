@@ -47,11 +47,40 @@ function getArticleFromId($id){
     $query = $db->prepare('SELECT * FROM Articles WHERE id = ?');
 
     // je l'exécute avec le bon paramtère
-    $query->execute([$id]);
+    $query->execute ([$id]);
     
-    // retourne l'article sous forme de tableau associatif
+     // retourne l'article sous forme de tableau associatif
     return $query->fetch(); 
     }
+
+
+//******************************récupérer les gammes d'articles************************/
+function getGammes(){
+    //je me connecte à la bdd
+    $db = getConnection();
+
+    // j'exécute une requete qui va récupérer toutes les gammes 
+    $results = $db->query('SELECT * FROM gammes');
+
+    // je récupère les résultats et je les renvoie grâce à return
+    return $results->fetchAll();
+}
+
+//************************récupérer les articles par l'id de leur gamme***************/
+function getArticlesByGamme($id_gamme){
+    //je me connecte à la bdd
+    $db = getConnection();
+
+    //je prépare une requete pour récupérer un article par son id_gamme //
+    $query = $db->prepare('SELECT * FROM articles WHERE id_gamme = ?');
+
+    // je l'exécute avec le bon paramtère
+    $query->execute ([$id_gamme]);
+    
+     // retourne l'article sous forme de tableau associatif
+    return $query->fetch(); 
+    }
+
 
 //*************************Initialiser le pannier en début de page********************/
 function createCart()
