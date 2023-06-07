@@ -1,52 +1,57 @@
 <?php
-//****************************************renvoyer un tableau d'articles *********************/
+//**********************************connexion à la base de données************************** */
+function getConnection()
+{
+//try : je tente une connexion
+try{
+    $db = new PDO(
+        'mysql:host=localhost;dbname=boutique_en_ligne;charset=utf8',//infos :sgbd, nom base, adress (host) +
+        'root', // pseudo utilisateur (root en local)
+        '',// mot de passe (aucun en local)
+        array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC)
+    ); // options PDO : 1) affichage des erreurs /2) récupération des données simplifiée
+
+    // si ça ne marche pas : je mets fin au code php en affichant l'erreur
+    } catch (Exception $erreur) {// je récupère l'erreur en paramètre
+        die('Erreur : '. $erreur->getMessage()); // je l'affiche et je mets fin au script
+    }
+
+
+    // je retourne la connextion stockée dans une variable
+    return $db;
+}
+
+
+//****************************************récupérer la liste des articles *********************/
 function getArticles()
 {
-    return [
-        //***************article 1***************************** */
-        [
-            'name' => 'Robe longue',
-            'id' => '1',
-            'price' => 129.99,
-            'description' => 'L\'élégance',
-            'detailedDescription' => 'Robe longue aux jolies couleurs estivales, elle égaiera vos plus belles soirées',
-            'picture' => 'robe1.jpg'
-        ],
-        //**************article 2***************************** */
-        [
-            'name' => 'Robe à fleurs',
-            'id' => '2',
-            'price' => 109.99,
-            'description' => 'Un air estival',
-            'detailedDescription' => 'Robe sans manches, fluide, elle vous accompagnera en toute circonstance tout l\'été',
-            'picture' => 'robe2.jpg'
-        ],
-        //**************article 3***************************** */
-        [
-            'name' => 'Robe blanche',
-            'id' => '3',
-            'price' => 159.99,
-            'description' => 'Robe de soirée',
-            'detailedDescription' => 'Robe longue aux jolies couleurs estivales, elle égaiera vos plus belles soirées',
-            'picture' => 'robe3.jpg'
-        ]
-    ];
+    // je me connecte à la base de données
+    $db = getConnection();
+
+    // j'exécute une requete qui va récupérer tous les articles
+    $results = $db->query('SELECT * FROM articles');
+
+    // je récupère les résultats et je les renvoie grâce à return
+    return $results->fetchAll();
 }
 //******************récupérer le produit qui correspond à l'id fourni en paramètre ************/
 
-function getArticleFromId($id)
-{
-    //récupérer la liste des articles 
-    $articles = getArticles();
 
-    // aller chercher dedans l'article qui comporte l'id en paramètre
-    foreach ($articles as $article) {
-        if ($article['id'] == $id) {
-            // le renvoyer avec un return
-            return $article;
-        }
+function getArticleFromId($id){
+   
+    // je me connecte à la bdd
+    $db = getConnection();
+     
+    // /!\ JAMAIS DE VARIABLE PHP DIRECTEMENT DANS UNE REQUETE /!\ (risque d'injection SQL)
+    // je mets en place ma requete préparée
+    $query = $db->prepare('SELECT * FROM Articles WHERE id = ?');
+
+    // je l'exécute avec le bon paramtère
+    $query->execute([$id]);
+    
+    // retourne l'article sous forme de tableau associatif
+    return $query->fetch(); 
     }
-}
 
 //*************************Initialiser le pannier en début de page********************/
 function createCart()

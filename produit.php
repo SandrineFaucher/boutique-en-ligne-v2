@@ -29,18 +29,18 @@ include 'head.php';
     //var_dump($article);
     // 3) afficher ses infos 
 
-
+    
     ?>
 
     <div class="row d-flex justify-content-center">
       <div class="card text-center" style="width: 40rem;">
-        <img src="./images/<?= $article['picture'] ?>" class="card-img-top" alt="robearticle">
+        <img src="./images/<?= $article['image'] ?>" class="card-img-top" alt="robearticle">
         <div class="card-body">
-          <h5 class="card-title"><?= $article['name'] ?></h5>
-          <p class="card-text"><?= $article['detailedDescription'] ?></p>
+          <h5 class="card-title"><?= $article['nom'] ?></h5>
+          <p class="card-text"><?= $article['description_detaillee'] ?></p>
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item"><?= $article['price'] ?>€</li>
+          <li class="list-group-item"><?= $article['prix'] ?>€</li>
         </ul>
 
         <form method="GET" action="./panier.php">

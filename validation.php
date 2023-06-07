@@ -16,6 +16,16 @@ include 'head.php';
 <body>
 
   <?php
+  // Je teste les changements dans le panier avant de les afficher dans le panier*/
+  if (isset($_GET['quantite'])) {
+    modifQuantite($_GET['quantite'], $_GET['productId']);
+  }
+
+  // si je viens du bouton supprimer*********************************************
+  if (isset($_GET['Idtodelate'])) {
+    // je supprime l'élément ****************************************************
+    delateArticle($_GET['Idtodelate']);
+  }
   include 'header.php';
   ?>
 
@@ -25,16 +35,7 @@ include 'head.php';
     </div>
     <?php
 
-    // Je teste les changements dans le panier avant de les afficher dans le panier*/
-    if (isset($_GET['quantite'])) {
-      modifQuantite($_GET['quantite'], $_GET['productId']);
-    }
-
-    // si je viens du bouton supprimer*********************************************
-    if (isset($_GET['Idtodelate'])) {
-      // je supprime l'élément ****************************************************
-      delateArticle($_GET['Idtodelate']);
-    }
+    
 
     // j'affiche les articles du panier */
     foreach ($_SESSION['panier'] as $article) {

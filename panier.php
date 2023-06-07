@@ -15,6 +15,43 @@ include 'head.php';
 
 <body>
   <?php
+  // je vérifie s'il y a un ajout au panier
+  if (isset($_GET['productId'])) {
+
+    // je récupère l'id transmis par le formulaire dans une variable
+    $productId = $_GET['productId'];
+
+    // je récupère l'article qui correspond à l'id
+
+    $article = getArticleFromId($productId);
+    //var_dump($article);
+
+    //j'ajoute l'article dans mon panier avec la fonction addToCart($article)
+
+    addToCart($article);
+
+    //var_dump($_SESSION);
+  }
+  
+  // Je teste les changements dans le panier avant de les afficher dans le panier*/
+  if (isset($_GET['quantite'])) {
+    modifQuantite($_GET['quantite'], $_GET['productId']);
+  }
+
+  // pour supprimer un article **************************************************************
+  // je vérifie si je viens du formulaire "supprimer" ***************************************
+  if (isset($_GET['Idtodelate'])) {
+
+    // je supprime l'élément ****************************************************************
+    delateArticle($_GET['Idtodelate']);
+  }
+  // Je vide mon panier *********************************************************************
+  // je vérifie si je viens du formulaire "vider le panier"***********************************
+  if (isset($_GET['vider'])) {
+
+    // je vide le panier ****************************************************************
+    viderPanier($_SESSION['panier']);
+  }
   include 'header.php';
   ?>
 
@@ -25,42 +62,7 @@ include 'head.php';
     <div class="container-fluid">
 
       <?php
-      // je vérifie s'il y a un ajout au panier
-      if (isset($_GET['productId'])) {
-
-        // je récupère l'id transmis par le formulaire dans une variable
-        $productId = $_GET['productId'];
-
-        // je récupère l'article qui correspond à l'id
-
-        $article = getArticleFromId($productId);
-        //var_dump($article);
-
-        //j'ajoute l'article dans mon panier avec la fonction addToCart($article)
-
-        addToCart($article);
-
-        //var_dump($_SESSION);
-      }
-      // Je teste les changements dans le panier avant de les afficher dans le panier*/
-      if (isset($_GET['quantite'])) {
-        modifQuantite($_GET['quantite'], $_GET['productId']);
-      }
-      // pour supprimer un article **************************************************************
-      // je vérifie si je viens du formulaire "supprimer" ***************************************
-      if (isset($_GET['Idtodelate'])) {
-
-        // je supprime l'élément ****************************************************************
-        delateArticle($_GET['Idtodelate']);
-      }
-      // Je vide mon panier *********************************************************************
-      // je vérifie si je viens du formulaire "vider le panier"***********************************
-      if (isset($_GET['vider'])) {
-
-        // je vide le panier ****************************************************************
-        viderPanier($_SESSION['panier']);
-      }
-
+      
       // j'affiche les articles du panier */
       foreach ($_SESSION['panier'] as $article) {
         echo "<div class=\"row text-bg-light p-3 \">
@@ -88,7 +90,7 @@ include 'head.php';
         </div>
         
         <div class=\"col-md-2 text-center d-flex align-items-center mt-5 d-flex justify-content-center justify-content-lg-end\">
-        <p class=\"card-text\">" . $article['price'] * $article['quantite'] . "€</p>
+        <p class=\"card-text\"> prix unitaire:".$article['price']."€ total article:" . $article['price'] * $article['quantite'] . "€</p>
         </div>
         </div>";
       }
