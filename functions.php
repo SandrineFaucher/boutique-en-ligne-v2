@@ -54,7 +54,7 @@ function getArticleFromId($id){
     }
 
 
-//******************************récupérer les gammes d'articles************************/
+//******************************récupérer les gammes d'articles********************************/
 function getGammes(){
     //je me connecte à la bdd
     $db = getConnection();
@@ -66,30 +66,29 @@ function getGammes(){
     return $results->fetchAll();
 }
 
-//************************récupérer les articles par l'id de leur gamme***************/
-function getArticlesByGamme($id_gamme){
+//************************récupérer les articles par l'id de leur gamme***********************/
+function getArticlesByGamme($id){
     //je me connecte à la bdd
     $db = getConnection();
 
     //je prépare une requete pour récupérer un article par son id_gamme //
-    $query = $db->prepare('SELECT * FROM articles WHERE id_gamme = ?');
+    $query = $db->prepare('SELECT * FROM articles  WHERE id_gamme  = ?');
 
     // je l'exécute avec le bon paramtère
-    $query->execute ([$id_gamme]);
+    $query->execute ([$id]);
     
      // retourne l'article sous forme de tableau associatif
-    return $query->fetch(); 
+    return $query->fetchAll(); 
     }
 
-
-//*************************Initialiser le pannier en début de page********************/
+//*************************Initialiser le pannier en début de page***************************/
 function createCart()
 {
     if (isset($_SESSION['panier']) == false) { //si mon panier n'existe pas encore
         $_SESSION['panier'] = [];           // je l'initialise
     }
 }
-//****************************Ajouter au panier *************************************/
+//****************************Ajouter au panier *********************************************/
 function addToCart($article)
 {
     // j'attribue une quantite de 1 (par défaut) à l'article
@@ -115,7 +114,7 @@ function addToCart($article)
 }
 
 
-//******************************calcul du total du panier*********************************** */
+//******************************calcul du total du panier**************************************/
 
 
 function totalArticles()
@@ -123,12 +122,12 @@ function totalArticles()
     $total = 0;
 
     foreach ($_SESSION['panier'] as $article) {
-        $total += $article['quantite'] * $article['price'];
+        $total += $article['quantite'] * $article['prix'];
     }
     return $total;
 }
 
-//******************************modification article***************************************** */
+//******************************modification article********************************************/
 
 function modifQuantite($nouvelleQuantite, $id)
 {
@@ -149,7 +148,7 @@ function modifQuantite($nouvelleQuantite, $id)
         }
     }
 }
-// je supprime les éléments *******************************************************************
+// ****************************je supprime les éléments ***************************************/
 function delateArticle($id)
 {
     // je boucle sur le panier => je cherche l'article à supprimer
@@ -163,13 +162,13 @@ function delateArticle($id)
         }
 }
 
-// je vide le panier complet *******************************************************************
+// ***************************je vide le panier complet ****************************************/
 function viderPanier()
 {
     $_SESSION['panier'] = [];
 }
 
-// je crée une fonction qui calcule les frais de port*****************************************************************
+// ***********************je crée une fonction qui calcule les frais de port*********************/
 // je boucle sur mon panier
 function fraisDePort($article)
 {
@@ -181,3 +180,90 @@ function fraisDePort($article)
     }
     return $total;
 }
+
+//****************fonction pour vérifier que les champs de formulaires ne sont pas vide **********/
+function checkEmptyFields()
+{
+foreach ($_POST as $field){
+    if (empty($field)){
+        return true;
+    }
+    }
+return false;
+}
+
+//**********fonction pour vérifier que la longueur des entrées de formulaire est valide ***********/
+function checkInputLenght()
+{
+    $inputLenghtOk = true;
+
+    if (strlen($_POST['nom']) > 25 || strlen($_POST['nom']) < 3){
+        $inputLenghtOk = false;
+    }
+
+    if (strlen($_POST['prenom']) > 25 || strlen($_POST['prenom']) < 3){
+        $inputLenghtOk = false;
+    }
+
+    if (strlen($_POST['email']) > 25 || strlen($_POST['email']) < 5 ){
+        $inputLenghtOk = false;
+    }
+
+    if (strlen($_POST['adresse']) > 40 || strlen($_POST['adresse']) < 5){
+        $inputLenghtOk = false;
+    }
+}
+// *****************fonction pour savoir si l'email n'existe pas *******************************/
+function emailExist(){
+    // je me connecte à la base
+    $db = getConnection();
+
+    // je prépare ma requete pour recuperer si déjà un email
+    $query = $db->prepare ('SELECT * FROM clients WHERE email = ?');
+    $query->execute([$_POST['email']]);
+    $query->fetch();
+    
+    }
+      
+
+//************************fonction pour checker le password ************************************/
+function checkPassword($password){
+
+// minimum 8 caractères et maximum 15, minimum 1 lettre, 1 chiffre et 1 caractère spécial
+$regex = "^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@$!%*?/&])(?=\S+$).{8,15}$^";
+
+}
+
+//***********************************fonction create user**************************************/
+function createUser(){
+//je me connecte à la bdd
+$db = getConnection();
+
+// je vérifie que les champs ne sont pas vides 
+if (checkEmptyFields()){
+    // je vérifie la longueur des champs 
+    if (checkInputLenght()){
+        // je vérifie si l'email existe déjà
+        if (emailExist()){
+            echo"Votre email est déjà utilisé";
+            {
+            if (checkPassword($_POST['inscription'])){
+                password_hash(strip_tags([$_POST]['user']), PASSWORD_DEFAULT);
+            }
+            
+        }
+}
+}
+}
+}
+
+
+
+
+
+
+
+
+
+
+

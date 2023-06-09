@@ -67,10 +67,10 @@ include 'head.php';
       foreach ($_SESSION['panier'] as $article) {
         echo "<div class=\"row text-bg-light p-3 \">
         <div class=\"col-md-2 text-start\">
-        <img src=\"./images/" . $article['picture'] . "\" class=\"card-img-top x-center\" alt=\"robe-panier\">
+        <img src=\"./images/" . $article['image'] . "\" class=\"card-img-top x-center\" alt=\"robe-panier\">
         </div>
         <div class=\"card-body col-md-2 my-auto d-flex justify-content-center justify-content-lg-start \">
-        <h5 class=\"card-title\">" . $article['name'] . "</h5>
+        <h5 class=\"card-title\">" . $article['nom'] . "</h5>
         </div>
         <div class=\"col-md-2 text-center d-flex align-items-center mt-2 d-flex justify-content-center justify-content-lg-end \">
         <form method=\"GET\" action=\"./panier.php\">
@@ -90,7 +90,7 @@ include 'head.php';
         </div>
         
         <div class=\"col-md-2 text-center d-flex align-items-center mt-5 d-flex justify-content-center justify-content-lg-end\">
-        <p class=\"card-text\"> prix unitaire:" . $article['price'] . "€ total article:" . $article['price'] * $article['quantite'] . "€</p>
+        <p class=\"card-text\"> prix unitaire:" . $article['prix'] . "€ total article:" . $article['prix'] * $article['quantite'] . "€</p>
         </div>
         </div>";
       }

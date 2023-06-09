@@ -22,6 +22,16 @@ include './head.php';
         // dans ce cas je vide mon panier puisque ma commande est validée !**********************
         viderPanier($_SESSION['panier']);
     }
+
+    //Je vérifie si je viens du formulaire de la page d'inscription************
+    if (isset($_POST['inscription'])) {
+
+        // j'affiche le message de succès ou d'erreur suite à l'inscription //
+        
+
+
+
+    }
     include './header.php';
     ?>
 
@@ -30,6 +40,15 @@ include './head.php';
             <h1> Se connecter </h1>
         </div>
         <div class="container-fluid">
+
+            <?php 
+            var_dump($_POST);
+            
+            var_dump(createUser());
+           
+            ?>
+
+        </div>
 
 
 

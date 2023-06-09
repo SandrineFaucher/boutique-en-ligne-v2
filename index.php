@@ -45,7 +45,8 @@ include './head.php';
         <div class=\"card-body\">
         <h5 class=\"card-title\">". $article['nom']. "</h5>
         <p class=\"card-text\">". $article['description']. "</p>
-        
+        <p class=\"card-text\">". $article['prix']. " € </p>
+
         <form method=\"GET\" action=\"./produit.php\">
 
         <input type=\"hidden\" name=\"productId\" value=\"".$article['id']."\">
