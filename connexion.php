@@ -19,6 +19,7 @@ include './head.php';
     <?php
     //Je vérifie si je viens du bouton valider ma commande de la page de validation************
     if (isset($_GET['commandeValidee'])) {
+
         // dans ce cas je vide mon panier puisque ma commande est validée !**********************
         viderPanier($_SESSION['panier']);
     }
@@ -26,36 +27,50 @@ include './head.php';
     //Je vérifie si je viens du formulaire de la page d'inscription************
     if (isset($_POST['inscription'])) {
 
-        // j'affiche le message de succès ou d'erreur suite à l'inscription //
-        
-
-
-
+        // si je viens du formulaire d'inscription j'insert les champs en base de données à partir de la fonction creatUser()
+        createUser();
     }
+
     include './header.php';
     ?>
 
     <main>
-        <div class="row text-center mt-5 mb-5">
-            <h1> Se connecter </h1>
-        </div>
         <div class="container-fluid">
 
-            <?php 
-            var_dump($_POST);
+            <?php
+            //var_dump($_POST);
+            //var_dump(createUser());
             
-            var_dump(createUser());
-           
             ?>
 
+            <div class="row text-center mt-5 mb-5">
+                <h1> Se Connecter </h1>
+
+            </div>
+
+            <form method="POST" action="./index.php">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Email </label>
+                            <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <div id="emailHelp" class="form-text">Nous ne partagerons jamais votre e-mail avec quelqu'un d'autre.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Mot de passe</label>
+                            <input type="password" name="motdepass" class="form-control" id="exampleInputPassword1">
+                        </div>
+
+                        <div class="col-12 mt-5 text-center">
+                            <input type="hidden" name="connection">
+                            <button class="btn btn-primary" type="submit">
+                                Valider
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
-
-
-
-
-
-
-
 
 
     </main>

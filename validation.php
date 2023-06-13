@@ -41,10 +41,10 @@ include 'head.php';
     foreach ($_SESSION['panier'] as $article) {
       echo "<div class=\"row  text-bg-light p-3 \">
          <div class=\"col-md-2 d-flex justify-content-center justify-content-lg-end\">
-         <img src=\"./images/" . $article['picture'] . "\" class=\"card-img-top x-center\" alt=\"robe-panier\">
+         <img src=\"./images/" . $article['image'] . "\" class=\"card-img-top x-center\" alt=\"robe-panier\">
          </div>
          <div class=\"card-body col-md-2 text-center my-auto d-flex justify-content-center justify-content-lg-start \">
-         <h5 class=\"card-title\">" . $article['name'] . "</h5>
+         <h5 class=\"card-title\">" . $article['nom'] . "</h5>
          </div>
          
  
@@ -66,7 +66,7 @@ include 'head.php';
          </div>
  
          <div class=\"col-md-2 text-center d-flex align-items-center d-flex justify-content-center justify-content-lg-end mt-5\">
-         <p class=\"card-text\">" . $article['price'] * $article['quantite'] . " €</p>
+         <p class=\"card-text\">" . $article['prix'] * $article['quantite'] . " €</p>
          </div>
          </div>";
     }

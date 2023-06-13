@@ -23,6 +23,13 @@ include './head.php';
     // dans ce cas je vide mon panier puisque ma commande est validée !**********************
     viderPanier($_SESSION['panier']);
   }
+
+  // Je vérifie si je viens du bouton connection ********************************************
+  if (isset ($_POST['connection'])){
+    // dans ce cas j'initialise une session de connection
+
+
+  }
   include './header.php';
   ?>
 
@@ -38,6 +45,7 @@ include './head.php';
 
      // je teste cette variable pour vérifier que j'ai bien mes 3 articles
     //var_dump($articles);
+    var_dump(createConnection());
     //je lance ma boucle pour afficher une card bootstrap par article
     foreach($articles as $article){
       echo "<div class=\"card\" col-md-4 style=\"width: 18rem; \"text-center\">

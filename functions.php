@@ -2,18 +2,18 @@
 //**********************************connexion à la base de données************************** */
 function getConnection()
 {
-//try : je tente une connexion
-try{
-    $db = new PDO(
-        'mysql:host=localhost;dbname=boutique_en_ligne;charset=utf8',//infos :sgbd, nom base, adress (host) +
-        'root', // pseudo utilisateur (root en local)
-        '',// mot de passe (aucun en local)
-        array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC)
-    ); // options PDO : 1) affichage des erreurs /2) récupération des données simplifiée
+    //try : je tente une connexion
+    try {
+        $db = new PDO(
+            'mysql:host=localhost;dbname=boutique_en_ligne;charset=utf8', //infos :sgbd, nom base, adress (host) +
+            'root', // pseudo utilisateur (root en local)
+            '', // mot de passe (aucun en local)
+            array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC)
+        ); // options PDO : 1) affichage des erreurs /2) récupération des données simplifiée
 
-    // si ça ne marche pas : je mets fin au code php en affichant l'erreur
-    } catch (Exception $erreur) {// je récupère l'erreur en paramètre
-        die('Erreur : '. $erreur->getMessage()); // je l'affiche et je mets fin au script
+        // si ça ne marche pas : je mets fin au code php en affichant l'erreur
+    } catch (Exception $erreur) { // je récupère l'erreur en paramètre
+        die('Erreur : ' . $erreur->getMessage()); // je l'affiche et je mets fin au script
     }
 
 
@@ -37,25 +37,27 @@ function getArticles()
 //******************récupérer le produit qui correspond à l'id fourni en paramètre ************/
 
 
-function getArticleFromId($id){
-   
+function getArticleFromId($id)
+{
+
     // je me connecte à la bdd
     $db = getConnection();
-     
+
     // /!\ JAMAIS DE VARIABLE PHP DIRECTEMENT DANS UNE REQUETE /!\ (risque d'injection SQL)
     // je mets en place ma requete préparée
     $query = $db->prepare('SELECT * FROM Articles WHERE id = ?');
 
     // je l'exécute avec le bon paramtère
-    $query->execute ([$id]);
-    
-     // retourne l'article sous forme de tableau associatif
-    return $query->fetch(); 
-    }
+    $query->execute([$id]);
+
+    // retourne l'article sous forme de tableau associatif
+    return $query->fetch();
+}
 
 
 //******************************récupérer les gammes d'articles********************************/
-function getGammes(){
+function getGammes()
+{
     //je me connecte à la bdd
     $db = getConnection();
 
@@ -67,7 +69,8 @@ function getGammes(){
 }
 
 //************************récupérer les articles par l'id de leur gamme***********************/
-function getArticlesByGamme($id){
+function getArticlesByGamme($id)
+{
     //je me connecte à la bdd
     $db = getConnection();
 
@@ -75,11 +78,11 @@ function getArticlesByGamme($id){
     $query = $db->prepare('SELECT * FROM articles  WHERE id_gamme  = ?');
 
     // je l'exécute avec le bon paramtère
-    $query->execute ([$id]);
-    
-     // retourne l'article sous forme de tableau associatif
-    return $query->fetchAll(); 
-    }
+    $query->execute([$id]);
+
+    // retourne l'article sous forme de tableau associatif
+    return $query->fetchAll();
+}
 
 //*************************Initialiser le pannier en début de page***************************/
 function createCart()
@@ -184,12 +187,12 @@ function fraisDePort($article)
 //****************fonction pour vérifier que les champs de formulaires ne sont pas vide **********/
 function checkEmptyFields()
 {
-foreach ($_POST as $field){
-    if (empty($field)){
-        return true;
+    foreach ($_POST as $field) {
+        if (empty($field)) {
+            return true;
+        }
     }
-    }
-return false;
+    return false;
 }
 
 //**********fonction pour vérifier que la longueur des entrées de formulaire est valide ***********/
@@ -197,73 +200,147 @@ function checkInputLenght()
 {
     $inputLenghtOk = true;
 
-    if (strlen($_POST['nom']) > 25 || strlen($_POST['nom']) < 3){
+    if (strlen($_POST['nom']) > 25 || strlen($_POST['nom']) < 3) {
         $inputLenghtOk = false;
     }
 
-    if (strlen($_POST['prenom']) > 25 || strlen($_POST['prenom']) < 3){
+    if (strlen($_POST['prenom']) > 25 || strlen($_POST['prenom']) < 3) {
         $inputLenghtOk = false;
     }
 
-    if (strlen($_POST['email']) > 25 || strlen($_POST['email']) < 5 ){
+    if (strlen($_POST['email']) > 25 || strlen($_POST['email']) < 5) {
         $inputLenghtOk = false;
     }
 
-    if (strlen($_POST['adresse']) > 40 || strlen($_POST['adresse']) < 5){
+    if (strlen($_POST['adresse']) > 40 || strlen($_POST['adresse']) < 5) {
         $inputLenghtOk = false;
     }
+    return $inputLenghtOk;
 }
 // *****************fonction pour savoir si l'email n'existe pas *******************************/
-function emailExist(){
+function emailExist()
+{
     // je me connecte à la base
     $db = getConnection();
 
     // je prépare ma requete pour recuperer si déjà un email
-    $query = $db->prepare ('SELECT * FROM clients WHERE email = ?');
+    $query = $db->prepare('SELECT * FROM clients WHERE email = ?');
     $query->execute([$_POST['email']]);
-    $query->fetch();
-    
+    $client = $query->fetch();
+    if ($client) {
+        return true;
+    } else {
+        return false;
     }
-      
+}
+
 
 //************************fonction pour checker le password ************************************/
-function checkPassword($password){
+function checkPassword($password)
+{
 
-// minimum 8 caractères et maximum 15, minimum 1 lettre, 1 chiffre et 1 caractère spécial
-$regex = "^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@$!%*?/&])(?=\S+$).{8,15}$^";
-
+    // minimum 8 caractères et maximum 15, minimum 1 lettre, 1 chiffre et 1 caractère spécial
+    $regex = "^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@$!%*?/&])(?=\S+$).{8,15}$^";
+    return preg_match($regex, $password);
 }
+
+// insérer une nouvelle adresse**********************************************//
+function createAdress($user_id)
+{
+
+    // je me connecte à la base
+    $db = getConnection();
+
+    // je prépare et execute ma requette d'entrée des données adresse, code postal, ville/ 
+    $query = $db->prepare("INSERT INTO adresses (`id_client`, `adresse`, `code_postal`, `ville`) VALUES (:id_client, :adresse, :code_postal, :ville)");
+    $query->execute(array(
+        'id_client' => $user_id,
+        'adresse' => strip_tags($_POST['adresse']),
+        'code_postal' => strip_tags($_POST['codepostal']),
+        'ville' => strip_tags($_POST['ville']),
+    ));
+}
+
 
 //***********************************fonction create user**************************************/
-function createUser(){
-//je me connecte à la bdd
-$db = getConnection();
+function createUser()
+{
+    //je me connecte à la bdd
+    $db = getConnection();
 
-// je vérifie que les champs ne sont pas vides 
-if (checkEmptyFields()){
-    // je vérifie la longueur des champs 
-    if (checkInputLenght()){
-        // je vérifie si l'email existe déjà
-        if (emailExist()){
-            echo"Votre email est déjà utilisé";
-            {
-            if (checkPassword($_POST['inscription'])){
-                password_hash(strip_tags([$_POST]['user']), PASSWORD_DEFAULT);
+    // je vérifie que les champs ne sont pas vides 
+    if (checkEmptyFields()) {
+
+        // je vérifie la longueur des champs 
+        if (checkInputLenght() == true) {
+
+            // je vérifie si l'email existe déjà
+            if (emailExist() == false) {
+
+                // je vérifie si le mot de passe est suffisamment sécurisé grâce à la regex et je le hache avec password_hash()
+                if (checkPassword($_POST['mot_de_passe'])) {
+                    $password = password_hash(strip_tags($_POST['mot_de_passe']), PASSWORD_DEFAULT);
+
+                    // je prépare ma requette d'insertion
+                    $query = $db->prepare("INSERT INTO clients(`nom`,`prenom`,`email`, `mot_de_passe`)
+                VALUES (:nom,:prenom,:email,:mot_de_passe)");
+
+                    // j'execute ma requete
+                    $query->execute([
+                        'nom' => strip_tags($_POST['nom']),
+                        'prenom' => strip_tags($_POST['prenom']),
+                        'email' => strip_tags($_POST['email']),
+                        'mot_de_passe' => strip_tags($password),
+                    ]);
+                    // récupération de l'id de l'utilisateur crée avec :  $id = $db->lastInsertId(); (fonction native php) 
+                    $id = $db->lastInsertId();
+
+                    // insertion de son adresse dans la table adresses
+                    createAdress($id);
+
+                    // On renvoie un message de succès
+                    echo '<script>alert(\'Le compte a bien été créé !\')</script>';
+                } else {
+                    echo "Mot de passe non sécurisé";
+                }
+            } else {
+                echo "Votre email existe déjà";
             }
-            
+        } else {
+            echo "la longueur des champs n'est pas valide";
         }
+    } else {
+        echo "Des champs ne sont pas remplis";
+    }
 }
+
+// je crée une fonction de connection ****************************************************
+function createConnection(){
+
+    // je me connecte à la base
+    $db = getConnection();
+
+     
+    // je vérifie si l'utilisateur existe ****/
+
+    // je prépare ma requete pour recuperer l'utilisateur s'il existe déjà
+    $query = $db->prepare('SELECT * FROM clients WHERE id = ?');
+    $query->execute(['client']);
+    $client = $query->fetch();
+    if ($client) {
+        return true;
+    } else {
+        return false;
+    }
+
+    // je vérifie si le mot de passe correspond au client *****/
+
+    //j'effectue le hachage de mon mot de passe ***************/
+    $password = password_hash(strip_tags($_POST['mot_de_passe']), PASSWORD_DEFAULT);
+
+    // je récupère mon mot de passe en clair
+    $motDePasse = $_POST['mot_de_passe'];
+
+    password_verify($motDePasse , $password);
+
 }
-}
-}
-
-
-
-
-
-
-
-
-
-
-
