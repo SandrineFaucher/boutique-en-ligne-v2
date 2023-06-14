@@ -227,11 +227,7 @@ function emailExist()
     $query = $db->prepare('SELECT * FROM clients WHERE email = ?');
     $query->execute([$_POST['email']]);
     $client = $query->fetch();
-    if ($client) {
-        return true;
-    } else {
-        return false;
-    }
+    return $client;
 }
 
 
@@ -314,33 +310,34 @@ function createUser()
     }
 }
 
+
 // je crée une fonction de connection ****************************************************
-function createConnection(){
+function createConnection()
+{
 
     // je me connecte à la base
     $db = getConnection();
 
-     
-    // je vérifie si l'utilisateur existe ****/
+    // Je récupère le client s'il existe
+    $client = emailExist();
 
-    // je prépare ma requete pour recuperer l'utilisateur s'il existe déjà
-    $query = $db->prepare('SELECT * FROM clients WHERE id = ?');
-    $query->execute(['client']);
-    $client = $query->fetch();
-    if ($client) {
-        return true;
+    if ($client == true) {
+        if (password_verify($_POST['mot_de_passe'], $client['mot_de_passe'])) {
+            $_SESSION['client'] = $client;
+            echo "Vous êtes connecté !";
+        } else {
+            echo "Votre mot de passe est incorrect !";
+        }
     } else {
-        return false;
+        echo "Vous n'avez pas de compte client !";
     }
-
-    // je vérifie si le mot de passe correspond au client *****/
-
-    //j'effectue le hachage de mon mot de passe ***************/
-    $password = password_hash(strip_tags($_POST['mot_de_passe']), PASSWORD_DEFAULT);
-
-    // je récupère mon mot de passe en clair
-    $motDePasse = $_POST['mot_de_passe'];
-
-    password_verify($motDePasse , $password);
-
 }
+
+//***********************fonction de déconnexion de session  ***************************/
+function deconnection()
+{
+    $_SESSION['client']= [];
+}
+
+
+

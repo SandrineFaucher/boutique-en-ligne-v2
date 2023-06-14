@@ -25,22 +25,16 @@ include './head.php';
     include './header.php';
     ?>
 
-    <main>
-        <div class="row text-center mt-5 mb-5">
-            <h1> Mon profil </h1>
+<main>
+<div class="container-fluid items text-center mt-5">
+            <h1> Mes commandes </h1>
         </div>
-        <div class="container-fluid">
 
+        
 
+</main>
 
-    </main>
-
-
-
-
-
-
-    <?php
-    // fichier footer qui se repetera sur chaque page
-    include 'footer.php';
-    ?>
+<?php
+  // fichier footer qui se repetera sur chaque page
+  include 'footer.php';
+  ?>

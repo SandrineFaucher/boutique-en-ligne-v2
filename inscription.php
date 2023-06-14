@@ -27,7 +27,7 @@ include './head.php';
 
     <main>
         <div class="row text-center mt-5 mb-5">
-            <h1> Inscription </h1>
+            <h1> Créer mon compte </h1>
         </div>
 
         <div class="container-fluid">

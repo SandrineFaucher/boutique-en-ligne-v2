@@ -31,6 +31,8 @@ include './head.php';
         createUser();
     }
 
+    // si je vien du formulaire 
+
     include './header.php';
     ?>
 
@@ -40,7 +42,7 @@ include './head.php';
             <?php
             //var_dump($_POST);
             //var_dump(createUser());
-            
+
             ?>
 
             <div class="row text-center mt-5 mb-5">
@@ -58,18 +60,25 @@ include './head.php';
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputPassword1" class="form-label">Mot de passe</label>
-                            <input type="password" name="motdepass" class="form-control" id="exampleInputPassword1">
+                            <input type="password" name="mot_de_passe" class="form-control" id="exampleInputPassword1">
                         </div>
 
                         <div class="col-12 mt-5 text-center">
-                            <input type="hidden" name="connection">
-                            <button class="btn btn-primary" type="submit">
+                            <button class="btn btn-primary" type="submit" name="connection">
                                 Valider
                             </button>
                         </div>
                     </div>
                 </div>
+                <div class="row text-center mt-5 mb-5">
             </form>
+            <form method="POST" action="./inscription.php">
+                <h3> Pas encore inscrit ? </h3>
+                <button type="submit" class="btn btn-sm btn-secondary mt-5">
+                    Je crée mon compte
+                </button>
+            </form>
+        </div>
         </div>
 
 

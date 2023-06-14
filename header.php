@@ -14,15 +14,29 @@
             <li class="nav-item">
               <a class="nav-link active p-5" aria-current="page" href="./gammes.php">Gammes</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link active p-5" aria-current="page" href="./inscription.php">Inscription </a>
+
+            <?php if (isset($_SESSION['client']['id'])) {
+              echo
+              "<li class=\"nav-item\">
+               <a class=\"nav-link active p-5\" aria-current=\"page\" href=\"./moncompte.php\">Mon compte </a>\"
             </li>
-            <li class="nav-item">
-              <a class="nav-link active p-5" aria-current="page" href="./connexion.php">Connection </a>
-            </li>
+            <li class=\"nav-item\">
+            <form method=\"POST\" action=\"./index.php\">
+               <button type=\"submit\" class=\"nav-link active p-5\"  name=\"deconnection\" >
+               Déconnexion
+               </button>
+            </form>
+            </li>";
+            } else {
+              echo "<li class=\"nav-item\">
+              <a class=\"nav-link active p-5\" aria-current=\"page\" href=\"./connexion.php\">Connexion / créer mon compte </a>\"
+           </li>";
+            }
+            ?>
             <li class="nav-item">
               <a class="nav-link active p-5" aria-current="page" href="./panier.php"><i class="fa-solid fa-bag-shopping"></i> <?= count($_SESSION['panier']) ?> </a>
             </li>
+
           </ul>
         </div>
       </div>

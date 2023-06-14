@@ -1,5 +1,7 @@
 
 /*GLOBAL*/
+
+
 * {
     margin: 0;
     padding: 0;
@@ -17,6 +19,26 @@ h1 {
 body {
     background-color: #e6d9d9;
 }
+
+/*INDEX
+
+SECTIONS INCLUSES/PAGE :
+functions
+head
+header
+footer
+
+PAGES UTILISANT DU CSS
+index
+produit
+gammes
+panier
+validation
+inscription
+connexion
+moncompte
+commandes
+*/
 
 
 /* HEADER */
@@ -54,4 +76,12 @@ footer {
 }
 footer i {
     font-size: 30px;
+}
+
+/* MON COMPTE */
+.user i{
+    font-size: 70px;
+}
+.items i{
+    font-size: 40px;
 }
