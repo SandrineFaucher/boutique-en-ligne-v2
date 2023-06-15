@@ -336,8 +336,46 @@ function createConnection()
 //***********************fonction de déconnexion de session  ***************************/
 function deconnection()
 {
-    $_SESSION['client']= [];
+    $_SESSION['client'] = [];
 }
 
 
+//***********************fonction de modification des infos*****************************/
+function modifInfos()
+{
+    //je me connecte à la bdd
+    $db = getConnection();
 
+    // je vérifie que les champs ne sont pas vides 
+    if (! checkEmptyFields())
+    {
+        echo"Des champs sont vides";
+    }
+
+    // je vérifie la longueur des champs
+    if (checkInputLenght() == false)
+    {
+        echo "La longueur des champs n'est pas valide";
+    }
+    // si la session est initialisée
+    if ($_SESSION['client']['id']) {
+
+        //je prépare ma requette pour remplacer les infos
+        $query = $db->prepare("UPDATE clients SET nom = :nom, prenom = :prenom, email = :email WHERE id = :id");
+
+        // j'execute ma requete
+        $query->execute([
+            'nom' => strip_tags($_POST['nom']),
+            'prenom' => strip_tags($_POST['prenom']),
+            'email' => strip_tags($_POST['email']),
+            'id' => intval($_SESSION['client']['id'])
+        ]);
+
+        // actualiser les infos de la session
+        $_SESSION['client']['nom'] = strip_tags($_POST['nom']);
+        $_SESSION['client']['prenom'] = strip_tags($_POST['prenom']);
+        $_SESSION['client']['email'] = strip_tags($_POST['email']);
+
+        echo "Vos informations ont été modifiées avec succès";
+    }
+}

@@ -28,6 +28,10 @@ include './head.php';
     // dans ce cas je vide mon panier puisque ma commande est validée !**********************
     viderPanier($_SESSION['panier']);
   }
+  //******************si je viens du formulaire modifInfos***********************************
+  if (isset($_POST['modificationsinfos'])){
+    modifInfos();
+  }
 
   // *****************déconnexion************************************************************
   // si je viens du formulaire de déconnection 
@@ -40,7 +44,7 @@ include './head.php';
 
   <main>
   <h2 class="text-center m-5">
-  <?php if ($_SESSION['client']){
+  <?php if (isset($_SESSION['client'])){
     echo "Bonjour"." ". $_SESSION['client']['nom']." ".$_SESSION['client']['prenom'];
   }
   ?>
