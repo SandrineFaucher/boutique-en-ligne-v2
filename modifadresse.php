@@ -22,6 +22,13 @@ include './head.php';
         // dans ce cas je vide mon panier puisque ma commande est validée !**********************
         viderPanier($_SESSION['panier']);
     }
+
+    // si je viens du formulaire de modification de l'adresse************************************
+    if (isset($_POST['modificationadresse'])){
+        modifAdresse();
+    }
+
+
     include './header.php';
     ?>
     <main>
@@ -32,29 +39,28 @@ include './head.php';
         <form method="POST" action="./modifadresse.php">
             <div class="mb-3">
                 <label for="validationCustom02" class="form-label">Adresse</label>
-                <input type="text" class="form-control" name="adresse" id="validationCustom02" required>
+                <input type="text" class="form-control" name="adresse" value= "<?= $_SESSION['adresse']['adresse'] ?> "  id="validationCustom02" required>
                 <div class="valid-feedback">
                     Looks good!
                 </div>
             </div>
             <div class="col-md-3">
                 <label for="validationCustom05" class="form-label">Code postal</label>
-                <input type="text" class="form-control" name="codepostal" id="validationCustom05" required>
+                <input type="text" class="form-control" name="code_postal" value="<?= $_SESSION['adresse']['code_postal'] ?>"  id="validationCustom05" required>
                 <div class="invalid-feedback">
                     Veuillez sélectionner un code postal valide
                 </div>
             </div>
             <div class="col-md-6">
                 <label for="validationCustom03" class="form-label">Ville</label>
-                <input type="text" class="form-control" name="ville" id="validationCustom03" required>
+                <input type="text" class="form-control" name="ville" value= "<?= $_SESSION['adresse']['ville'] ?>"  id="validationCustom03" required>
                 <div class="invalid-feedback">
                     Veuillez sélectionner une ville valide
                 </div>
             </div>
 
             <div class="col-12 mt-5 text-center">
-                <input type="hidden" name="inscription">
-                <button class="btn btn-primary" type="submit">Valider</button>
+                <button class="btn btn-primary" name="modificationadresse" type="submit">Valider</button>
             </div>
             </div>
         </form>

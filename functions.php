@@ -194,6 +194,26 @@ function checkEmptyFields()
     }
     return false;
 }
+// fonction pour vérifier la longeur des entrées pour les modifsinfos
+function checkInputLenghtInfos()
+{
+    $inputLenghtOk = true;
+
+    if (strlen($_POST['nom']) > 25 || strlen($_POST['nom']) < 3) {
+        $inputLenghtOk = false;
+    }
+
+    if (strlen($_POST['prenom']) > 25 || strlen($_POST['prenom']) < 3) {
+        $inputLenghtOk = false;
+    }
+
+    if (strlen($_POST['email']) > 25 || strlen($_POST['email']) < 5) {
+        $inputLenghtOk = false;
+    }
+    return $inputLenghtOk;
+}
+
+
 
 //**********fonction pour vérifier que la longueur des entrées de formulaire est valide ***********/
 function checkInputLenght()
@@ -212,7 +232,7 @@ function checkInputLenght()
         $inputLenghtOk = false;
     }
 
-    if (strlen($_POST['adresse']) > 40 || strlen($_POST['adresse']) < 5) {
+    if (strlen($_POST['adresse']) > 100 || strlen($_POST['adresse']) < 5) {
         $inputLenghtOk = false;
     }
     return $inputLenghtOk;
@@ -252,7 +272,7 @@ function createAdress($user_id)
     $query->execute(array(
         'id_client' => $user_id,
         'adresse' => strip_tags($_POST['adresse']),
-        'code_postal' => strip_tags($_POST['codepostal']),
+        'code_postal' => strip_tags($_POST['code_postal']),
         'ville' => strip_tags($_POST['ville']),
     ));
 }
@@ -324,6 +344,7 @@ function createConnection()
     if ($client == true) {
         if (password_verify($_POST['mot_de_passe'], $client['mot_de_passe'])) {
             $_SESSION['client'] = $client;
+            $_SESSION['adresse'] = recupAdressClientSession();
             echo "Vous êtes connecté !";
         } else {
             echo "Votre mot de passe est incorrect !";
@@ -332,6 +353,22 @@ function createConnection()
         echo "Vous n'avez pas de compte client !";
     }
 }
+
+
+//*************************recupérer l'adresse associé au client de la session***********/
+function recupAdressClientSession()
+{
+    //je me connecte à la bdd
+    $db = getConnection();
+
+    //requete 
+    $query = $db->prepare("SELECT * FROM adresses  WHERE id_client = ?");
+
+    // j'execute ma requete
+    $query->execute([$_SESSION['client']['id']]);
+    return $query->fetch();
+}
+
 
 //***********************fonction de déconnexion de session  ***************************/
 function deconnection()
@@ -347,35 +384,168 @@ function modifInfos()
     $db = getConnection();
 
     // je vérifie que les champs ne sont pas vides 
-    if (! checkEmptyFields())
-    {
-        echo"Des champs sont vides";
+    if (!checkEmptyFields()) {
+        echo "Des champs sont vides";
     }
 
     // je vérifie la longueur des champs
-    if (checkInputLenght() == false)
-    {
+    if (checkInputLenghtInfos() == true) {
+
+        // si la session est initialisée
+        if ($_SESSION['client']['id']) {
+
+            //je prépare ma requette pour remplacer les infos
+            $query = $db->prepare("UPDATE clients SET nom = :nom, prenom = :prenom, email = :email WHERE id = :id");
+
+            // j'execute ma requete
+            $query->execute([
+                'nom' => strip_tags($_POST['nom']),
+                'prenom' => strip_tags($_POST['prenom']),
+                'email' => strip_tags($_POST['email']),
+                'id' => intval($_SESSION['client']['id'])
+            ]);
+
+            // actualiser les infos de la session
+            $_SESSION['client']['nom'] = strip_tags($_POST['nom']);
+            $_SESSION['client']['prenom'] = strip_tags($_POST['prenom']);
+            $_SESSION['client']['email'] = strip_tags($_POST['email']);
+
+            // On renvoie un message de succès
+            echo '<script>alert(\'Vos modifications sont enregistrées !\')</script>';
+        }
+    } else {
         echo "La longueur des champs n'est pas valide";
     }
-    // si la session est initialisée
-    if ($_SESSION['client']['id']) {
+}
 
-        //je prépare ma requette pour remplacer les infos
-        $query = $db->prepare("UPDATE clients SET nom = :nom, prenom = :prenom, email = :email WHERE id = :id");
+//************************vérification de la longueur des champs pour la modif adresse****/
+function checkInputLenghtAdresse()
+{
+    $inputLenghtOk = true;
 
-        // j'execute ma requete
-        $query->execute([
-            'nom' => strip_tags($_POST['nom']),
-            'prenom' => strip_tags($_POST['prenom']),
-            'email' => strip_tags($_POST['email']),
-            'id' => intval($_SESSION['client']['id'])
-        ]);
+    if (strlen($_POST['adresse']) > 100 || strlen($_POST['adresse']) < 5) {
+        $inputLenghtOk = false;
+    }
+    if (strlen($_POST['code_postal']) > 40 || strlen($_POST['code_postal']) < 5) {
+        $inputLenghtOk = false;
+    }
+    if (strlen($_POST['ville']) > 40 || strlen($_POST['ville']) < 5) {
+        $inputLenghtOk = false;
+    }
 
-        // actualiser les infos de la session
-        $_SESSION['client']['nom'] = strip_tags($_POST['nom']);
-        $_SESSION['client']['prenom'] = strip_tags($_POST['prenom']);
-        $_SESSION['client']['email'] = strip_tags($_POST['email']);
+    return $inputLenghtOk;
+}
 
-        echo "Vos informations ont été modifiées avec succès";
+
+
+//****************fonction de modification de l'adresse **********************************/
+function modifAdresse()
+{
+    //je me connecte à la bdd
+    $db = getConnection();
+
+    // je vérifie que les champs ne sont pas vides 
+    if (!checkEmptyFields()) {
+        echo "Des champs sont vides";
+    } else {
+
+        // je vérifie la longueur des champs
+        if (checkInputLenghtAdresse() == true) {
+
+            // si la session est initialisée
+            if ($_SESSION['client']['id']) {
+
+                //je prépare ma requette pour remplacer les infos
+                $query = $db->prepare("UPDATE adresses SET  adresse = :adresse, code_postal = :code_postal, ville = :ville WHERE id_client = :id_client");
+
+                // j'execute ma requete
+                $query->execute([
+                    'adresse' => strip_tags($_POST['adresse']),
+                    'code_postal' => strip_tags($_POST['code_postal']),
+                    'ville' => strip_tags($_POST['ville']),
+                    'id_client' => strip_tags($_SESSION['client']['id'])
+                ]);
+
+                // actualiser les infos de la session
+                $_SESSION['client']['adresse'] = strip_tags($_POST['adresse']);
+                $_SESSION['client']['code_postal'] = strip_tags($_POST['code_postal']);
+                $_SESSION['client']['ville'] = strip_tags($_POST['ville']);
+
+                // On renvoie un message de succès
+                echo '<script>alert(\'Vos modifications sont enregistrées !\')</script>';
+            } else {
+                echo "Vous n'êtes pas connecté !";
+            }
+        } else {
+            echo "La longueur des champs n'est pas valide";
+        }
     }
 }
+
+
+// ************modification du mot de passe ***********************************************
+
+function modifMotDePasse()
+{
+    //je me connecte à la bdd
+    $db = getConnection();
+
+    // je vérifie que les champs ne sont pas vides 
+    if (!checkEmptyFields()) {
+        echo "Des champs sont vides";
+    } else {
+
+        // je récupère le mot de passe existant 
+        $query = $db->prepare('SELECT mot_de_passe FROM clients WHERE id =?');
+        $query->execute([$_SESSION['client']['id']]);
+        $client = $query->fetch();
+
+
+        if (password_verify(strip_tags($_POST['oldPassword']), $client['mot_de_passe'])) {
+
+
+            //je vérifie les critères avec la regew 
+            if (checkPassword($_POST['newPassword'])) {
+
+
+                //sinon je continue en le hachant 
+                $newPassword = password_hash(strip_tags($_POST['newPassword']), PASSWORD_DEFAULT);
+
+                // je prépare ma requette d'insertion
+                $query = $db->prepare("UPDATE clients SET mot_de_passe = :new_mot_de_passe WHERE id = :id");
+
+                // j'execute ma requete
+                $query->execute([
+                    'new_mot_de_passe' => $newPassword,
+                    'id' => $_SESSION['client']['id'],
+                ]);
+
+                // On renvoie un message de succès
+                echo '<script>alert(\'Votre mot de passe a bien été modifié !\')</script>';
+            } else {
+                echo "votre mot de passe ne respecte pas les critères";
+            }
+        } else {
+            echo "votre email ne correspond pas à la session";
+        }
+    }
+}
+
+// stocker l'adresse de livraison //
+//function adressLivraison()
+//{
+    // si je viens du formulaire de livraison /
+    //if (isset($_POST['adresselivraison'])) {
+
+        // je vérifie que les champs ne sont pas vides 
+       // if (!checkEmptyFields()) {
+            //echo "Des champs sont vides";
+        //} else {
+
+            // je stocke les champs du formulaire dans une session adresselivraison
+            //$_SESSION['adresselivraison']['adresse'] = strip_tags($_POST['adresse']);
+            //$_SESSION['adresselivraison']['code_postal'] = strip_tags($_POST['code_postal']);
+            //$_SESSION['adresselivraison']['code_postal'] = strip_tags($_POST['ville']);
+        //}
+   // }
+//}

@@ -22,6 +22,17 @@ include './head.php';
         // dans ce cas je vide mon panier puisque ma commande est validée !**********************
         viderPanier($_SESSION['panier']);
     }
+
+    // modification du mot de passe //
+
+    // si je viens du formulaire modifmotdepasse //
+    if (isset($_POST['modifmotdepasse'])) {
+
+        // j'appelle la fonction qui le modifie //
+        modifMotDePasse();
+
+    }
+
     include './header.php';
     ?>
 
@@ -36,15 +47,17 @@ include './head.php';
                 <div class="row">
                     <div class="mb-3">
                         <label for="exampleInputPassword1" class="form-label">Ancien mot de passe</label>
-                        <input type="password" name="mot_de_passe" class="form-control" id="exampleInputPassword1">
+                            <input type="password" name="oldPassword" class="form-control" placeholder="mot de passe" id="exampleInputPassword1">
+                            
+                        
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputPassword1" class="form-label">Nouveau mot de passe</label>
-                        <input type="password" name="mot_de_passe" class="form-control" id="exampleInputPassword1">
+                        <input type="password" name="newPassword" class="form-control" placeholder="nouveau mot de passe" id="exampleInputPassword1">
                     </div>
 
                     <div class="col-12 mt-5 text-center">
-                        <button class="btn btn-primary" type="submit" name="connection">
+                        <button class="btn btn-primary" type="submit" name="modifmotdepasse">
                             Valider
                         </button>
                     </div>
@@ -87,7 +100,7 @@ include './head.php';
 
                 </div>
             </div>
-            
+
 
     </main>
 

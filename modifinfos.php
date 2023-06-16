@@ -22,21 +22,21 @@ include './head.php';
         // dans ce cas je vide mon panier puisque ma commande est validée !**********************
         viderPanier($_SESSION['panier']);
     }
+    
+      
+    include './header.php';
+   
+       
     // je vérifie si je viens du formulaire de modification des infos 
     if (isset($_POST['modificationsinfos'])){
 
-        // je récupère l'id de mon client de session 
-        $id = ($_SESSION['client']);
-
+        //je lance la fonction de modification des infos (nom, prénom, email)
         modifInfos();
-    }
-    
-      
-
-
-    include './header.php';
-    
+   } 
+   
     ?>
+
+
     <main>
         <div class="container-fluid items text-center mt-5">
             <h1> Modifier mes informations </h1>
@@ -49,19 +49,19 @@ include './head.php';
                     { echo 
                 "<div class=\"mb-3\">
                     <label for=\"nom\" class=\"form-label\">Nom</label>
-                    <input type=\"text\" class=\"form-control\" name=\"nom\" value=\" " . $_SESSION['client']['nom']." \" required>
+                    <input type=\"text\" class=\"form-control\" name=\"nom\" value=\"" . $_SESSION['client']['nom']."\" required>
                 </div>
 
                 <div class=\"mb-3\">
                     <label for=\"validationCustom02\" class=\"form-label\">Prénom</label>
-                    <input type=\"text\" class=\"form-control\" name=\"prenom\" value=\" " . $_SESSION['client']['prenom']." \" id=\"validationCustom02\" required>
+                    <input type=\"text\" class=\"form-control\" name=\"prenom\" value=\"" .$_SESSION['client']['prenom']."\" id=\"validationCustom02\" required>
                     <div class=\"valid-feedback\">
                         Looks good!
                     </div>
                 </div>
                 <div class=\"mb-3 mt-5\">
                     <label for=\"exampleInputEmail1\" class=\"form-label\">Email </label>
-                    <input type=\"email\" class=\"form-control\" name=\"email\"  value=\" " . $_SESSION['client']['email']." \" id=\"exampleInputEmail1\" aria-describedby=\"emailHelp\" required>
+                    <input type=\"email\" class=\"form-control\" name=\"email\"  value=\"". $_SESSION['client']['email']."\" id=\"exampleInputEmail1\" aria-describedby=\"emailHelp\" required>
                     <div id=\"emailHelp\" class=\"form-text\">Nous ne partagerons jamais votre e-mail avec quelqu'un d'autre.</div>
                 </div>
             </div>";

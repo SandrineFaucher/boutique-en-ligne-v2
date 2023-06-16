@@ -54,7 +54,7 @@ include './head.php';
                     </div>
                     <div class="col-md-3">
                         <label for="validationCustom05" class="form-label">Code postal</label>
-                        <input type="text" class="form-control" name="codepostal" id="validationCustom05" required>
+                        <input type="text" class="form-control" name="code_postal" id="validationCustom05" required>
                         <div class="invalid-feedback">
                             Veuillez sélectionner un code postal valide
                         </div>

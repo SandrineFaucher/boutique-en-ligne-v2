@@ -85,10 +85,6 @@ include './head.php';
     </main>
 
 
-
-
-
-
     <?php
     // fichier footer qui se repetera sur chaque page
     include 'footer.php';

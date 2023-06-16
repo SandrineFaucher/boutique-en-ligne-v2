@@ -44,10 +44,17 @@ include './head.php';
 
   <main>
   <h2 class="text-center m-5">
-  <?php if (isset($_SESSION['client'])){
-    echo "Bonjour"." ". $_SESSION['client']['nom']." ".$_SESSION['client']['prenom'];
+  <?php 
+  if (isset($_POST['deconnection'])){
+    echo "Bonjour";
+  } else
+  {
+    if (isset($_SESSION['client'])){
+      echo "Bonjour"." ". $_SESSION['client']['nom']." ".$_SESSION['client']['prenom'];
+  }
   }
   ?>
+  
   </h2>
 
     <h1 class="text-center m-5">Bienvenue dans ma boutique</h1>
