@@ -35,15 +35,15 @@ include 'head.php';
     <div class="row d-flex justify-content-center">
       <div class="card text-center" style="width: 40rem;">
         <img src="./images/<?= $article['image'] ?>" class="card-img-top" alt="robearticle">
-        <div class="card-body">
+        <div class="card-body m-3">
           <h5 class="card-title"><?= $article['nom'] ?></h5>
           <p class="card-text"><?= $article['description_detaillee'] ?></p>
         </div>
-        <ul class="list-group list-group-flush">
+        <ul class="list-group list-group-flush m-5">
           <li class="list-group-item"><?= $article['prix'] ?> €</li>
         </ul>
 
-        <form method="GET" action="./panier.php">
+        <form method="GET" action="./panier.php" class="m-5">
 
           <input type="hidden" name="productId" value="<?= $article['id'] ?>">
 

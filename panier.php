@@ -55,7 +55,7 @@ include 'head.php';
   include 'header.php';
   ?>
 
-  <main>
+  <main class="container-fluid ml-5 mr-5">
     <div class="row text-center mt-5 mb-5">
       <h1> Mon panier </h1>
     </div>

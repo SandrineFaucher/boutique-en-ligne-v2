@@ -9,6 +9,7 @@ session_start();
 createCart();
 //var_dump($_SESSION);
 
+
 //fichier head avec les balises de bases + le head pour ne pas répéter dans chaque page
 include './head.php';
 ?>
@@ -23,6 +24,7 @@ include './head.php';
         viderPanier($_SESSION['panier']);
     }
     include './header.php';
+ 
     ?>
 
     <main>

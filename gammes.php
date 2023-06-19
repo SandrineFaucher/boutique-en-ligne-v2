@@ -25,7 +25,7 @@ include './head.php';
     include './header.php';
     ?>
 
-    <main>
+    <main class="container-fluid ml-5 ">
         <div class="row text-center mt-5 mb-5">
             <h1> Nos gammes </h1>
         </div>
@@ -39,7 +39,7 @@ include './head.php';
             foreach ($gammes as $gamme) {
 
                 echo "
-                <div class=\"container text-center m-5\">
+                <div class=\"container text-center mt-5 mb-5\">
                 <h2>" . $gamme['nom'] . "</h2>
                 </div>
 
@@ -72,34 +72,8 @@ include './head.php';
             ?>
         </div>
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        ?>
-
-
-
-
-
+ 
     </main>
-
-
-
 
     <?php
     // fichier footer qui se repetera sur chaque page

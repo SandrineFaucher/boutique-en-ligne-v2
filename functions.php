@@ -531,21 +531,82 @@ function modifMotDePasse()
     }
 }
 
-// stocker l'adresse de livraison //
-//function adressLivraison()
-//{
-    // si je viens du formulaire de livraison /
-    //if (isset($_POST['adresselivraison'])) {
+//***************************/ enregistrer la commande ********************//
+function saveCommand()
+{
+    //je me connecte à la bdd
+    $db = getConnection();
 
-        // je vérifie que les champs ne sont pas vides 
-       // if (!checkEmptyFields()) {
-            //echo "Des champs sont vides";
-        //} else {
 
-            // je stocke les champs du formulaire dans une session adresselivraison
-            //$_SESSION['adresselivraison']['adresse'] = strip_tags($_POST['adresse']);
-            //$_SESSION['adresselivraison']['code_postal'] = strip_tags($_POST['code_postal']);
-            //$_SESSION['adresselivraison']['code_postal'] = strip_tags($_POST['ville']);
-        //}
-   // }
-//}
+    //je récupère ma date du jour formatée
+    $date = date("Y-m-d");
+
+    // je génère un numéro de commande à partir de la fonction rand()
+    $number = rand(1000000, 9999999);
+
+
+    // je prépare une requete pour insérer les informations
+    $query = $db->prepare("INSERT INTO `commandes` (id_client, numero, date_commande, prix)
+    VALUES (:id_client,:numero,:date_commande,:prix)");
+
+    // j'execute ma requete
+    $query->execute([
+        'id_client' => $_SESSION['client']['id'],
+        'numero' => $number,
+        'date_commande' => $date,
+        'prix' => totalArticles() 
+    ]);
+
+    // je recupère l'id de la commande crée 
+    $id = $db->lastInsertId();
+
+    $query = $db->prepare("INSERT INTO `commande_articles` (`id_commande`,`id_article`, `quantite`)
+    VALUES (:id_commande,:id_article,:quantite)");
+
+    foreach ($_SESSION['panier'] as $article) {
+        $query->execute([
+            'id_commande' => $id,
+            'id_article' => $article['id'],
+            'quantite' => $article['quantite']
+        ]);
+    }
+}
+
+//********************************fonction pour récupérer la commande du client**************/
+function recupCommande()
+{
+    //je me connecte à la bdd
+    $db = getConnection();
+
+    // je stocke l'id de la session dans une variable $id
+    $id = $_SESSION['client']['id'];
+
+    //je prépare une requete pour récupérer toutes les  commandes par la foreign Key //
+    $query = $db->prepare('SELECT * FROM commandes  WHERE id_client = ?');
+
+    // je l'exécute avec le bon paramtère
+    $query->execute([$id]);
+
+    // retourne la commande sous forme de tableau associatif
+    return $query->fetchAll();
+}
+
+// *****************récupération les articles de chaque commande **********************/
+function recupArticlesCommande(){
+
+//je me connecte à la bdd
+$db = getConnection();
+
+// je récupère les articles de chaque commande en faisant un INNER JOIN
+$query = $db->prepare('SELECT * FROM commande_articles as ca
+INNER JOIN articles as a
+ON ca.id_article = a.id
+WHERE id_commande = ?');
+
+// je l'exécute avec le bon paramtère
+$query->execute([$_POST['commandeId']]);
+
+// retourne la commande sous forme de tableau associatif
+return $query->fetchAll();
+
+}

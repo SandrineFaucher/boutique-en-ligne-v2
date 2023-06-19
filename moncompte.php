@@ -25,7 +25,7 @@ include './head.php';
     include './header.php';
     ?>
 
-    <main>
+    <main class="container-fluid ml-5 mr-5">
         <div class="row text-center mt-5 mb-5">
             <h1> Mon compte </h1>
         </div>
@@ -69,7 +69,7 @@ include './head.php';
                 <div class="col-md-3 text-center mt-5 mb-5">
                     <i class="fa-solid fa-clipboard-list mt-2 mb-2 "></i>
                     <form method="POST" action="./mescommandes.php">
-                        <button type="submit" class="btn btn-sm btn-secondary mt-5">
+                        <button type="submit" name="recupcommande" class="btn btn-sm btn-secondary mt-5">
                             Voir mes commandes
                         </button>
                     </form>

@@ -23,13 +23,15 @@ include './head.php';
 <body>
   <!--intégration de la navbar-->
   <?php
+
   //Je vérifie si je viens du bouton valider ma commande de la page de validation************
   if (isset($_GET['commandeValidee'])) {
+    saveCommand();
     // dans ce cas je vide mon panier puisque ma commande est validée !**********************
     viderPanier($_SESSION['panier']);
   }
-  //******************si je viens du formulaire modifInfos***********************************
-  if (isset($_POST['modificationsinfos'])){
+  //**j'appelle la fonction modifInfos pour que le nom après "Bonjour" soit mis à jour*******
+  if (isset($_POST['modificationsinfos'])) {
     modifInfos();
   }
 
@@ -42,20 +44,19 @@ include './head.php';
   include './header.php';
   ?>
 
-  <main>
-  <h2 class="text-center m-5">
-  <?php 
-  if (isset($_POST['deconnection'])){
-    echo "Bonjour";
-  } else
-  {
-    if (isset($_SESSION['client'])){
-      echo "Bonjour"." ". $_SESSION['client']['nom']." ".$_SESSION['client']['prenom'];
-  }
-  }
-  ?>
-  
-  </h2>
+  <main class="container-fluid ml-5 mr-5">
+    <h2 class="text-center m-5">
+      <?php
+      if (isset($_POST['deconnection'])) {
+        echo "Bonjour";
+      } else {
+        if (isset($_SESSION['client'])) {
+          echo "Bonjour" . " " . $_SESSION['client']['nom'] . " " . $_SESSION['client']['prenom'];
+        }
+      }
+      ?>
+
+    </h2>
 
     <h1 class="text-center m-5">Bienvenue dans ma boutique</h1>
     <div class="container-fluid">

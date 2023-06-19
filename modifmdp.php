@@ -30,8 +30,8 @@ include './head.php';
 
         // j'appelle la fonction qui le modifie //
         modifMotDePasse();
-
     }
+
 
     include './header.php';
     ?>
@@ -41,31 +41,30 @@ include './head.php';
             <h1> Modifier mon mot de passe </h1>
         </div>
 
-
-        <form method="POST" action="./modifmdp.php">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="mb-3">
-                        <label for="exampleInputPassword1" class="form-label">Ancien mot de passe</label>
+        <div class="formulaire p-5">
+            <form method="POST" action="./modifmdp.php">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Ancien mot de passe</label>
                             <input type="password" name="oldPassword" class="form-control" placeholder="mot de passe" id="exampleInputPassword1">
-                            
-                        
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleInputPassword1" class="form-label">Nouveau mot de passe</label>
-                        <input type="password" name="newPassword" class="form-control" placeholder="nouveau mot de passe" id="exampleInputPassword1">
-                    </div>
 
-                    <div class="col-12 mt-5 text-center">
-                        <button class="btn btn-primary" type="submit" name="modifmotdepasse">
-                            Valider
-                        </button>
+
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Nouveau mot de passe</label>
+                            <input type="password" name="newPassword" class="form-control" placeholder="nouveau mot de passe" id="exampleInputPassword1">
+                        </div>
+
+                        <div class="col-12 mt-5 text-center">
+                            <button class="btn btn-primary" type="submit" name="modifmotdepasse">
+                                Valider
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </form>
-
-
+            </form>
+        </div>
 
         <div class="container-fluid items">
             <div class="row text-center mt-5 mb-5">

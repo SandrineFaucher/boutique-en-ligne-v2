@@ -31,27 +31,27 @@ include './head.php';
 
     include './header.php';
     ?>
-    <main>
+    <main class="container-fluid ml-5 mr-5">
         <div class="container-fluid items text-center mt-5">
             <h1> Modifier Mon adresse </h1>
         </div>
-
+<div class="formulaire p-5">
         <form method="POST" action="./modifadresse.php">
-            <div class="mb-3">
+            <div class="mb-3 mt-3">
                 <label for="validationCustom02" class="form-label">Adresse</label>
                 <input type="text" class="form-control" name="adresse" value= "<?= $_SESSION['adresse']['adresse'] ?> "  id="validationCustom02" required>
                 <div class="valid-feedback">
                     Looks good!
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 mt(3">
                 <label for="validationCustom05" class="form-label">Code postal</label>
                 <input type="text" class="form-control" name="code_postal" value="<?= $_SESSION['adresse']['code_postal'] ?>"  id="validationCustom05" required>
                 <div class="invalid-feedback">
                     Veuillez sélectionner un code postal valide
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 mt-3">
                 <label for="validationCustom03" class="form-label">Ville</label>
                 <input type="text" class="form-control" name="ville" value= "<?= $_SESSION['adresse']['ville'] ?>"  id="validationCustom03" required>
                 <div class="invalid-feedback">
@@ -64,7 +64,7 @@ include './head.php';
             </div>
             </div>
         </form>
-
+</div>
         <div class="container-fluid items">
             <div class="row">
                 <div class="col-md-4 text-center mt-5 mb-5">

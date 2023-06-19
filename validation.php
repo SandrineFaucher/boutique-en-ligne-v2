@@ -32,22 +32,17 @@ include 'head.php';
     // je je peux modifier les coordonnées****************************************************
     modifInfos();
   }
-  
+
   // si je viens du formulaire adresselivraison
   if (isset($_POST['adresselivraison'])) {
     // je peux modifier l'adresse'****************************************************
     modifAdresse();
-    adressLivraison();
   }
-  // si je viens du formulaire adressefacturation je peux modifier les infos
-  if (isset($_POST['adressefacturation'])){
-    modifAdresse();
-  }
-
+  
   include 'header.php';
   ?>
 
-  <main>
+  <main class="container-fluid ml-5 mr-5">
     <div class="row text-center mt-5 mb-5">
       <h1> Je valide ma commande </h1>
     </div>
@@ -147,7 +142,28 @@ include 'head.php';
                     <div id=\"emailHelp\" class=\"form-text\">Nous ne partagerons jamais votre e-mail avec quelqu'un d'autre.</div>
                 </div>
             </div>";
+      } else{
+        echo
+        "<div class=\"mb-3\">
+                    <label for=\"nom\" class=\"form-label\">Nom</label>
+                    <input type=\"text\" class=\"form-control\" name=\"nom\" value=\"nom\" required>
+                </div>
+
+                <div class=\"mb-3\">
+                    <label for=\"validationCustom02\" class=\"form-label\">Prénom</label>
+                    <input type=\"text\" class=\"form-control\" name=\"prenom\" value=\"prenom\" id=\"validationCustom02\" required>
+                    <div class=\"valid-feedback\">
+                        Looks good!
+                    </div>
+                </div>
+                <div class=\"mb-3 mt-5\">
+                    <label for=\"exampleInputEmail1\" class=\"form-label\">Email </label>
+                    <input type=\"email\" class=\"form-control\" name=\"email\"  value=\"email\" id=\"exampleInputEmail1\" aria-describedby=\"emailHelp\" required>
+                    <div id=\"emailHelp\" class=\"form-text\">Nous ne partagerons jamais votre e-mail avec quelqu'un d'autre.</div>
+                </div>
+            </div>";
       }
+
       ?>
       <div class="col-12 mt-5 text-center">
         <button class="btn btn-primary" type="submit" name="coordonnees">
@@ -159,88 +175,72 @@ include 'head.php';
     <div class="text-center mt-5">
       <h3> Adresse de livraison </h3>
     </div>
-
-    <form method="POST" action="./validation.php">
-      <div class="mb-3">
-        <label for="validationCustom02" class="form-label">Adresse</label>
-        <input type="text" class="form-control" name="adresse" value="<?= $livraison['adresse'] ?> " id="validationCustom02" required>
-        <div class="valid-feedback">
+    <?php 
+    if (isset($_SESSION['client'])){
+      echo "
+    <form method=\"POST\" action=\"./validation.php\">
+      <div class=\"mb-3\">
+        <label for=\"validationCustom02\" class=\"form-label\">Adresse</label>
+        <input type=\"text\" class=\"form-control\" name=\"adresse\" value=\"" . $_SESSION['adresse']['adresse'] . " \" id=\"validationCustom02\" required>
+        <div class=\"valid-feedback\">
           Looks good!
         </div>
       </div>
-      <div class="col-md-3">
-        <label for="validationCustom05" class="form-label">Code postal</label>
-        <input type="text" class="form-control" name="code_postal" value="<?= $_SESSION['adresse']['code_postal'] ?>" id="validationCustom05" required>
-        <div class="invalid-feedback">
+      <div class=\"col-md-3\">
+        <label for=\"validationCustom05\" class=\"form-label\">Code postal</label>
+        <input type=\"text\" class=\"form-control\" name=\"code_postal\" value=\"" . $_SESSION['adresse']['code_postal'] . "\" id=\"validationCustom05\" required>
+        <div class=\"invalid-feedback\">
           Veuillez sélectionner un code postal valide
         </div>
       </div>
-      <div class="col-md-6">
-        <label for="validationCustom03" class="form-label">Ville</label>
-        <input type="text" class="form-control" name="ville" value="<?= $_SESSION['adresse']['ville'] ?>" id="validationCustom03" required>
-        <div class="invalid-feedback">
+      <div class=\"col-md-6\">
+        <label for=\"validationCustom03\" class=\"form-label\">Ville</label>
+        <input type=\"text\" class=\"form-control\" name=\"ville\" value=\"" . $_SESSION['adresse']['ville'] . "\" id=\"validationCustom03\" required>
+        <div class=\"invalid-feedback\">
           Veuillez sélectionner une ville valide
         </div>
+      </div>";
+    } else {
+      echo "
+      <form method=\"POST\" action=\"./validation.php\">
+      <div class=\"mb-3\">
+        <label for=\"validationCustom02\" class=\"form-label\">Adresse</label>
+        <input type=\"text\" class=\"form-control\" name=\"adresse\" value=\"adresse\" id=\"validationCustom02\" required>
+        <div class=\"valid-feedback\">
+          Looks good!
+        </div>
       </div>
-
-      <div class="col-12 mt-5 text-center">
-        <button class="btn btn-primary" name="adresselivraison" type="submit">
-          Valider mon adresse de livraison
-        </button>
+      <div class=\"col-md-3\">
+        <label for=\"validationCustom05\" class=\"form-label\">Code postal</label>
+        <input type=\"text\" class=\"form-control\" name=\"code_postal\" value=\"code postal\" id=\"validationCustom05\" required>
+        <div class=\"invalid-feedback\">
+          Veuillez sélectionner un code postal valide
+        </div>
       </div>
-      </div>
-<?= var_dump(adressLivraison()); ?>
+      <div class=\"col-md-6\">
+        <label for=\"validationCustom03\" class=\"form-label\">Ville</label>
+        <input type=\"text\" class=\"form-control\" name=\"ville\" value=\"ville\" id=\"validationCustom03\" required>
+        <div class=\"invalid-feedback\">
+          Veuillez sélectionner une ville valide
+        </div>
+      </div>";
+    }
+    ?>
 
-
-
-    </form>
-    <div class="text-center mt-5">
-      <h3> Adresse de Facturation </h3>
+    <div class="col-12 mt-5 text-center">
+      <button class="btn btn-primary" name="adresselivraison" type="submit">
+        Valider mon adresse de livraison
+      </button>
+    </div>
     </div>
 
-    <form method="POST" action="./validation.php">
-      <div class="mb-3">
-        <label for="validationCustom02" class="form-label">Adresse</label>
-        <input type="text" class="form-control" name="adresse" value="<?= $_SESSION['adresse']['adresse'] ?> " id="validationCustom02" required>
-        <div class="valid-feedback">
-          Looks good!
-        </div>
-      </div>
-      <div class="col-md-3">
-        <label for="validationCustom05" class="form-label">Code postal</label>
-        <input type="text" class="form-control" name="code_postal" value="<?= $_SESSION['adresse']['code_postal'] ?>" id="validationCustom05" required>
-        <div class="invalid-feedback">
-          Veuillez sélectionner un code postal valide
-        </div>
-      </div>
-      <div class="col-md-6">
-        <label for="validationCustom03" class="form-label">Ville</label>
-        <input type="text" class="form-control" name="ville" value="<?= $_SESSION['adresse']['ville'] ?>" id="validationCustom03" required>
-        <div class="invalid-feedback">
-          Veuillez sélectionner une ville valide
-        </div>
-      </div>
-
-      <div class="col-12 mt-5 text-center">
-        <button class="btn btn-primary" name="adressefacturation" type="submit">
-          Valider mon adresse de facturation
-        </button>
-      </div>
-      </div>
     </form>
-
-
-
-
-
-
-
 
 
     <!--je valide ma commande avec un modal bootstrap --->
     <!-- Button trigger modal -->
     <div class="bouton d-flex justify-content-center justify-content-lg-center mt-5">
-      <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+      <button type="button" type="submit" name="commandevalidee" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
         Je confirme mon achat
       </button>
     </div>

@@ -20,6 +20,11 @@ body {
     background-color: #e6d9d9;
     
 }
+/*Formulaires*/
+
+
+
+
 
 /*INDEX
 
@@ -55,6 +60,13 @@ nav a {
 nav .nav-link {
     font-size: 20px;
 }
+
+/*MODIFMDP*/
+.modifmdp{
+    width: 50%;
+}
+
+
 
 /*VALIDATION*/
 .modal-header h5 {
