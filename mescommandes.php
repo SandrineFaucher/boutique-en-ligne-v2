@@ -52,24 +52,21 @@ include './head.php';
     <tr>
       <th scope=\"row\">" . $commande['numero'] . "</th>
       <td>" . $commande['date_commande'] . "</td>
-      <td>" . $commande['prix'] . "</td>
+      <td>" . $commande['prix'] . " €</td>
 
       <td>
-      <form method=\"POST\" action=\"detailscommande\">
-      <input type=\"hidden\" name=\"commandeId\" value=\"" . $commande['id'] . "\">
-      <button type=\"submit\" class=\"btn btn-sm btn-secondary\">
+        <form method=\"POST\" action=\"detailscommande\">
+        <input type=\"hidden\" name=\"commandeId\" value=\"" . $commande['id'] . "\">
+        <button type=\"submit\" class=\"btn btn-sm btn-secondary\">
         Détails
-      </button>
-      </form>
+        </button>
+        </form>
       </td>
-    </tr>
-    </table>
-    ";
+    </tr>";
+ 
     }
     ?>
-
-                
-
+    </table>
     </main>
 
     <?php

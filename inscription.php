@@ -78,6 +78,7 @@ include './head.php';
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Mot de passe</label>
                     <input type="password" class="form-control" name="mot_de_passe" id="exampleInputPassword1" required>
+                   <label> minimum 8 caractères et maximum 15, minimum 1 lettre, 1 chiffre et 1 caractère spécial (@$!%*?/&)</label>
                 </div>
             </div>
             <div class="col-12 mt-5 text-center">
@@ -86,19 +87,9 @@ include './head.php';
             </div>
         </div>
         </form>
-
         
     </main>
-
-
-
-
-
-
-
-
-
-
+    
     <?php
     // fichier footer qui se repetera sur chaque page
     include 'footer.php';

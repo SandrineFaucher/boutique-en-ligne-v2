@@ -54,6 +54,7 @@ include './head.php';
                         <div class="mb-3">
                             <label for="exampleInputPassword1" class="form-label">Nouveau mot de passe</label>
                             <input type="password" name="newPassword" class="form-control" placeholder="nouveau mot de passe" id="exampleInputPassword1">
+                            <label> minimum 8 caractères et maximum 15, minimum 1 lettre, 1 chiffre et 1 caractère spécial (@$!%*?/&)</label>
                         </div>
 
                         <div class="col-12 mt-5 text-center">

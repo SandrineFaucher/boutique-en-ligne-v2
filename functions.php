@@ -317,16 +317,16 @@ function createUser()
                     // On renvoie un message de succès
                     echo '<script>alert(\'Le compte a bien été créé !\')</script>';
                 } else {
-                    echo "Mot de passe non sécurisé";
+                    echo '<script>alert(\'Mot de passe non sécurisé !\')</script>';
                 }
             } else {
-                echo "Votre email existe déjà";
+                echo '<script>alert(\'Votre email existe déjà !\')</script>';
             }
         } else {
-            echo "la longueur des champs n'est pas valide";
+            echo '<script>alert(\'La longueur des champs n\'est pas valide !\')</script>';
         }
     } else {
-        echo "Des champs ne sont pas remplis";
+        echo '<script>alert(\'Des champs ne sont pas remplis !\')</script>';
     }
 }
 
@@ -345,12 +345,12 @@ function createConnection()
         if (password_verify($_POST['mot_de_passe'], $client['mot_de_passe'])) {
             $_SESSION['client'] = $client;
             $_SESSION['adresse'] = recupAdressClientSession();
-            echo "Vous êtes connecté !";
+            echo '<script>alert(\'Vous êtes connecté !\')</script>';
         } else {
-            echo "Votre mot de passe est incorrect !";
+            echo '<script>alert(\'Votre mot de passe est incorrect !\')</script>';
         }
     } else {
-        echo "Vous n'avez pas de compte client !";
+        echo '<script>alert(\'Vous n\'avez pas de compte client !\')</script>';
     }
 }
 
@@ -385,7 +385,7 @@ function modifInfos()
 
     // je vérifie que les champs ne sont pas vides 
     if (!checkEmptyFields()) {
-        echo "Des champs sont vides";
+        echo '<script>alert(\'Des champs sont vides !\')</script>';
     }
 
     // je vérifie la longueur des champs
@@ -414,7 +414,7 @@ function modifInfos()
             echo '<script>alert(\'Vos modifications sont enregistrées !\')</script>';
         }
     } else {
-        echo "La longueur des champs n'est pas valide";
+        echo '<script>alert(\'La longueur des champs n\'est pas valide !\')</script>';
     }
 }
 
@@ -446,7 +446,7 @@ function modifAdresse()
 
     // je vérifie que les champs ne sont pas vides 
     if (!checkEmptyFields()) {
-        echo "Des champs sont vides";
+        echo '<script>alert(\'Des champs sont vides !\')</script>';
     } else {
 
         // je vérifie la longueur des champs
@@ -474,10 +474,10 @@ function modifAdresse()
                 // On renvoie un message de succès
                 echo '<script>alert(\'Vos modifications sont enregistrées !\')</script>';
             } else {
-                echo "Vous n'êtes pas connecté !";
+                echo '<script>alert(\'Vous n\'êtes pas connecté !\')</script>';
             }
         } else {
-            echo "La longueur des champs n'est pas valide";
+            echo '<script>alert(\'La longueur des champs n\'est pas valide !\')</script>';;
         }
     }
 }
@@ -492,7 +492,7 @@ function modifMotDePasse()
 
     // je vérifie que les champs ne sont pas vides 
     if (!checkEmptyFields()) {
-        echo "Des champs sont vides";
+        echo '<script>alert(\'Des champs sont vides !\')</script>';
     } else {
 
         // je récupère le mot de passe existant 
@@ -523,10 +523,10 @@ function modifMotDePasse()
                 // On renvoie un message de succès
                 echo '<script>alert(\'Votre mot de passe a bien été modifié !\')</script>';
             } else {
-                echo "votre mot de passe ne respecte pas les critères";
+                echo '<script>alert(\'Votre mot de passe ne respecte pas les critères !\')</script>';
             }
         } else {
-            echo "votre email ne correspond pas à la session";
+            echo '<script>alert(\'Votre email ne correspond pas à la session !\')</script>';
         }
     }
 }
@@ -554,7 +554,7 @@ function saveCommand()
         'id_client' => $_SESSION['client']['id'],
         'numero' => $number,
         'date_commande' => $date,
-        'prix' => totalArticles() 
+        'prix' => totalPrice(),
     ]);
 
     // je recupère l'id de la commande crée 
@@ -571,6 +571,14 @@ function saveCommand()
         ]);
     }
 }
+
+//************************fonction qui calcule le total article + frais de port */
+function totalPrice(){
+    $article = 3;
+    $total = totalArticles() + fraisDePort($article);
+    return $total;
+}
+
 
 //********************************fonction pour récupérer la commande du client**************/
 function recupCommande()
@@ -591,7 +599,7 @@ function recupCommande()
     return $query->fetchAll();
 }
 
-// *****************récupération les articles de chaque commande **********************/
+// *****************récupération des articles pour le détail commande **********************/
 function recupArticlesCommande(){
 
 //je me connecte à la bdd

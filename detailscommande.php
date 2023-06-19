@@ -29,7 +29,7 @@ include './head.php';
 
     <main class="container-fluid ml-5 mr-5">
         <div class="container-fluid items text-center mt-5">
-            <h1> Détail de mes commandes </h1>
+            <h1> Détail de ma commande </h1>
         </div>
         <table class="table mt-5 mb-5 table-info">
             <thead>
@@ -47,17 +47,22 @@ include './head.php';
                     echo "
                 <tr>
                     <th scope=\"row\">" . $article['nom'] . "</th>
-                    <td>" . $article['prix'] . "</td>
+                    <td>" . $article['prix'] . " €</td>
                     <td> " . $article['quantite'] . "</td>
                     <td>" . $article['prix'] * $article['quantite'] . " €</td>
                 </tr>"
+
                 ?>
             </tbody>
         </table>
 
-        <button class="">
-            Retour au compte
-        </button>
+        <div class="text-center">
+            <a href="./moncompte.php">
+                <button class="btn btn-sm btn-secondary">
+                    Retour au compte
+                </button>
+            </a>
+        </div>
 
 
 
